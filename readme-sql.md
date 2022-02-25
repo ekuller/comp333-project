@@ -1,11 +1,18 @@
+```sql
 CREATE DATABASE `music-db`;
+```
 
+```sql
 USE `music-db`;
+```
 
+```sql
 CREATE TABLE `users` (`username` VARCHAR(255), password TEXT, PRIMARY KEY (`username`));
 CREATE TABLE `ratings` (`id` INT, username TEXT, song TEXT, rating INT, PRIMARY KEY (`id`));
 CREATE TABLE `artists` (`song` VARCHAR(255), artist TEXT, PRIMARY KEY (`song`));
+```
 
+```sql
 INSERT INTO users (username, password) VALUES ('Amelia-Earhart', 'Youaom139&yu7'), ('Otto', 'StarWars2\*');
 INSERT INTO ratings (id, username, song, rating) VALUES
 (1,'Amelia-Earhart','Freeway', 3),
@@ -16,3 +23,4 @@ INSERT INTO artists (song, artist) VALUES
 ('Freeway','Aimee Mann'),
 ('Days of Wine and Roses','Bill Evans'),
 ('These Walls','Kendrick Lamar');
+```
