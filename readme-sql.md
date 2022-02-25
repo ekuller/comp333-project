@@ -1,13 +1,13 @@
 Create database named music_db.
 
 ```sql
-CREATE DATABASE music_db;
+CREATE DATABASE `music-db`;
 ```
 
 Identify that we want to use this database for future commands.
 
 ```sql
-USE music_db;
+USE `music-db`;
 ```
 
 Create the desired 3 tables with their respective primary keys.
