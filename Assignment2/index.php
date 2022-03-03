@@ -7,12 +7,12 @@
         <h1>music-db</h1>
         <h2>Registration</h2>
         <div>
-            <form>
+            <form method="post" action="index2.php">
                 <label for="name">Username:</label>
-                <input  type="text" id="username1" name="name"><br>
-                <label for="p">Password:</label>
-                <input type="text" id="password" name="p"><br>
-                <input class="button black-text-bg white-text" type="submit" value="Register">
+                <input type="text" id="username1" name="name"><br>
+                <label for="pwd">Password:</label>
+                <input type="text" id="password" name="pwd"><br>
+                <input class="button black-text-bg white-text" type="submit" value="Register" name="Register">
             </form>
         </div>
         <h2>Retrieve Songs By Username</h2>
@@ -20,7 +20,7 @@
             <form method="post" action="index.php">
                 <label for="name">Username:</label>
                 <input type="text" id="user-ret" name="name"><br>
-                <input class="button black-text-bg white-text"  type="submit" value="Retrieve" name="retRating">
+                <input class="button black-text-bg white-text" type="submit" value="Retrieve" name="retRating">
             </form>
             <?php
                 function retRatings(){
@@ -34,19 +34,29 @@
                     if ($conn->connect_error) {
                         die("Connection failed: " . $conn->connect_error);
                     }
-                    $out_value = "";
-                    $username = $_REQUEST['name'];
+                    $username = str_replace("'","\'",$_REQUEST['name']); //In case username contains an apostrophe
                     if(!empty($username)){
                         $sql_query = "SELECT song, rating FROM ratings WHERE username = ('$username')";
                         $result = mysqli_query($conn, $sql_query);
                         if(mysqli_num_rows($result)!=0){
+                            //Each subsequent call to mysqli_fetch_array will return the next row within the result set, or null if there are no more rows.
                             while ($row = mysqli_fetch_array($result)) {
                                 printf($row['song']." -> ".$row['rating']);
                                 echo "<br>";
                             }
                         }else{
-                            echo "User does not exist.";
+                            $sql_query = "SELECT * FROM users WHERE username = ('$username')";
+                            $result = mysqli_query($conn, $sql_query);
+                            if(mysqli_num_rows($result)!=0){
+                                echo "User does not have a review.";
+                            }
+                            else{
+                                echo "User does not exist.";
+                            }
                         }
+                    }
+                    else{
+                        echo "Must provide a username";
                     }
                     $conn->close();
                 }
@@ -54,7 +64,7 @@
                 if(isset($_POST['retRating'])){
                     retRatings();
                 } 
-        ?>
+            ?>
         </div>
     </div>
 
