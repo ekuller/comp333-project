@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+	<body>
+		{% load static %}
+		<link
+			rel="stylesheet"
+			type="text/css"
+			href="{% static 'musicrater/style.css' %}"
+		/>
+		<div class="h-center v-center">
+			<h1>music-db</h1>
+			<h2>Registration</h2>
+			<div>
+				<form>
+					<label for="name">Username:</label>
+					<input type="text" id="username1" name="name" /><br />
+					<label for="pwd">Password:</label>
+					<input type="text" id="password" name="pwd" /><br />
+					<input
+						class="button black-text-bg white-text"
+						type="submit"
+						value="Register"
+						name="Register"
+					/>
+				</form>
+			</div>
+			<h2>Retrieve Songs By Username</h2>
+			<div>
+				<form>
+					<label for="name">Username:</label>
+					<input type="text" id="user-ret" name="name" /><br />
+					<input
+						class="button black-text-bg white-text"
+						type="submit"
+						value="Retrieve"
+						name="retRating"
+					/>
+				</form>
+			</div>
+		</div>
+	</body>
+</html>
