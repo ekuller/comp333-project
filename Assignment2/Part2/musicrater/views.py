@@ -4,14 +4,15 @@ from .models import Users, Artists, Ratings
 
 
 def index(request):
-    return render(request, 'musicrater/index.html')
-
-def registerUser(request):
     if request.method=='POST':
         if request.POST.get('name') and request.POST.get('pwd'):
             u=Users()
             u.username= request.POST.get('name')
             u.password= request.POST.get('pwd')
             u.save()
+    return render(request, 'musicrater/index.html')
+
+
+    
 
             
