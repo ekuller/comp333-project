@@ -1,0 +1,9 @@
+{% if songs_list %}
+<ul>
+	{% for s in songs_list %}
+	<li>{{s.song}} -> {{s.rating}}</li>
+	{% endfor %}
+</ul>
+{% else %}
+<p>User is not registered.</p>
+{% endif %}
