@@ -30,3 +30,24 @@ def register(request):
 
 def reg_succ(request):
     return render(request, 'musicrater/reg_succ.html')
+
+def retrieve(request):
+    if request.method=='POST':
+        if request.POST.get('name'):
+            name = request.POST.get('name')
+            try:
+                usr = Users.objects.get(username=name)
+                return render(request, 'musicrater/index.html', {
+                        'usr': name,
+                        'user_reviews':Ratings.objects.filter(username=name)
+                    })
+            except:
+                return render(request, 'musicrater/index.html', {
+                        'review_err_msg': "user not found!",
+                    })
+        else:
+            return render(request, 'musicrater/index.html', {
+            'review_err_msg': "Please enter a valid username",
+            })
+    else:
+        return HttpResponseRedirect('/rater')
