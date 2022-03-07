@@ -1,0 +1,74 @@
+[
+  {
+     "model":"musicrater.Users",
+     "fields":{
+        "username":"Amelia-Earhart",
+        "password":"Youaom139&yu7"
+     }
+  },
+  {
+     "model":"musicrater.Users",
+     "fields":{
+        "username":"Otto",
+        "password":"StarWars2*"
+     }
+  },
+  {
+    "model":"musicrater.artists",
+    "pk":"Days of Wine and Roses",
+    "fields":{
+       "artist":"Bill Evans"
+    }
+ },
+ {
+    "model":"musicrater.artists",
+    "pk":"Freeway",
+    "fields":{
+       "artist":"Aimee Mann"
+    }
+ },
+ {
+    "model":"musicrater.artists",
+    "pk":"These Walls",
+    "fields":{
+       "artist":"Kendrick Lamar"
+    }
+ },
+  {
+     "model":"musicrater.ratings",
+     "pk":1,
+     "fields":{
+        "username":"Amelia-Earhart",
+        "song":"Freeway",
+        "rating":3
+     }
+  },
+  {
+     "model":"musicrater.ratings",
+     "pk":2,
+     "fields":{
+        "username":"Amelia-Earhart",
+        "song":"Days of Wine and Roses",
+        "rating":4
+     }
+  },
+  {
+     "model":"musicrater.ratings",
+     "pk":3,
+     "fields":{
+        "username":"Otto",
+        "song":"Days of Wine and Roses",
+        "rating":5
+     }
+  },
+  {
+     "model":"musicrater.ratings",
+     "pk":4,
+     "fields":{
+        "username":"Amelia-Earhart",
+        "song":"These Walls",
+        "rating":4
+     }
+  }
+
+]
