@@ -11,12 +11,14 @@
 			<h1>music-db</h1>
 			<h2>Registration</h2>
 			<div>
-				<form action="" method="Post">
+				<form action="{% url 'musicrater:register' %}" method="Post">
 					{% csrf_token %}
 					<label for="name">Username:</label>
-					<input type="text" id="username1" name="name" /><br />
+					<input type="text" id="username1" name="name" /><br>
+
 					<label for="pwd">Password:</label>
-					<input type="text" id="password" name="pwd" /><br />
+					<input type="text" id="password" name="pwd" /><br>
+					{% if error_message %}<p><strong>{{ error_message }}</strong></p><br>{% endif %}
 					<input
 						class="button black-text-bg white-text"
 						type="submit"

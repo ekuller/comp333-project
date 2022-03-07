@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+	<body>
+		{% load static %}
+		<link
+			rel="stylesheet"
+			type="text/css"
+			href="{% static 'musicrater/style.css' %}"
+		/>
+		<div class="h-center v-center">
+				Registration Successful! <br>
+				Redirecting you...
+		</div>
+		<script>
+    function redirect(){
+       window.location.href = "{% url 'musicrater:index' %}";
+    }
+
+    setTimeout(redirect, 1500); //2000 is equivalent to 2 seconds
+</script>
+	</body>
+</html>
