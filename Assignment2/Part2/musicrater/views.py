@@ -2,7 +2,6 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from .models import Users, Artists, Ratings, Emojis
-import time
 
 def index(request):
     return render(request, 'musicrater/index.html')
@@ -36,10 +35,16 @@ def retrieve(request):
         if request.POST.get('name'):
             name = request.POST.get('name')
             try:
-                usr = Users.objects.get(username=name)
-                return render(request, 'musicrater/index.html', {
-                        'usr': name,
-                        'user_reviews':Ratings.objects.filter(username=name)
+                Users.objects.get(username=name)
+                if Ratings.objects.filter(username=name):
+
+                    return render(request, 'musicrater/index.html', {
+                            'usr': name,
+                            'user_reviews':Ratings.objects.filter(username=name)
+                        })
+                else:
+                    return render(request, 'musicrater/index.html', {
+                        'review_err_msg': "User does not have a review.",
                     })
             except:
                 return render(request, 'musicrater/index.html', {

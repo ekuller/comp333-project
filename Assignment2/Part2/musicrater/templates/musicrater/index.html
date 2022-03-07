@@ -44,12 +44,12 @@
 				</form>
 				{% if user_reviews %}
 				<p>{{ usr }}'s review:</p>
-				{% for review in user_reviews %} {{ review.song.song }} -> {{
-				review.rating }} <br />
+				{% for review in user_reviews %} {{ review.song.song }} -> {{ review.rating }} <br />
 				{% endfor %} {% else %}
 				<p>{{ review_err_msg }}</p>
 				{% endif %}
 			</div>
+
 			<h2>Find Songs By Emoji</h2>
 			<div>
 				<form action="{% url 'musicrater:retrieveByEmoji' %}" method="POST">
