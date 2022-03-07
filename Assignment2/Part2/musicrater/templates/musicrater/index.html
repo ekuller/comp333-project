@@ -58,11 +58,13 @@
 					<input class="button emoji" type="submit" value="🥳" name="emoji" />
 					<input class="button emoji" type="submit" value="🥺" name="emoji" />
 				</form>
-				{% if emoji_report %}
-				<p>Songs rated with {{ emoji }}:</p>
-				{% for song in emoji_report %} {{ song}} -> {{ emoji_report.song }%}
-				<br />
-				{% endfor %} {% endif %}
+				<div style="padding-bottom: 5vh">
+					{% if emoji_report %}
+					<p>Songs rated with {{ emoji }}:</p>
+					{% for song, per in emoji_report.items %} {{ song}} -> {{per}}
+					<br />
+					{% endfor %} {% endif %}
+				</div>
 			</div>
 		</div>
 	</body>

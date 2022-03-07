@@ -55,15 +55,20 @@ def retrieve(request):
 def retrieveByEmoji(request):
     if request.method=='POST':
         if request.POST.get("emoji"):
-            emojiNames={"😁":"happy","🥺":"sad","🥳":"celebration"}
-            emoji=emojiNames[request.POST.get("emoji")]
+            emoji=request.POST.get("emoji")
             emoji_percentage={}
             songs= Artists.objects.values_list('song', flat=True)
             for s in songs:
                 reactions=Emojis.objects.filter(song=s)
                 songReactions=reactions.count()
-                emojiSongCount=Emojis.objects.filter(emoji=True).count()
-                emoji_percentage[s]=emojiSongCount/songReactions
+                if songReactions>0:
+                    if emoji=="😁":
+                        emojiSongCount=reactions.filter(happy=True).count()
+                    if emoji=="🥺":
+                        emojiSongCount=reactions.filter(sad=True).count()
+                    if emoji=="🥳":
+                        emojiSongCount=reactions.filter(celebration=True).count()
+                    emoji_percentage[s]=str((emojiSongCount/songReactions)*100)+"%"
             return render(request, 'musicrater/index.html', {
                 'emoji_report': emoji_percentage,
                 'emoji': emoji

@@ -1,114 +1,111 @@
 [
-  {
-     "model":"musicrater.Users",
-     "pk":"Amelia-Earhart",
-     "fields":{
-        "password":"Youaom139&yu7"
-     }
-  },
-  {
-     "model":"musicrater.Users",
-     "pk":"Otto",
-     "fields":{
-        "password":"StarWars2*"
-     }
-  },
-  {
-    "model":"musicrater.artists",
-    "pk":"Days of Wine and Roses",
-    "fields":{
-       "artist":"Bill Evans"
-    }
- },
- {
-    "model":"musicrater.artists",
-    "pk":"Freeway",
-    "fields":{
-       "artist":"Aimee Mann"
-    }
- },
- {
-    "model":"musicrater.artists",
-    "pk":"These Walls",
-    "fields":{
-       "artist":"Kendrick Lamar"
-    }
- },
- {
-    "model":"musicrater.emojis",
-    "pk":1,
-    "fields":{
-      "happy": "True",
-      "sad": "False",
-      "celebration": "True"
-    }
-  },
-  {
-    "model":"musicrater.emojis",
-    "pk":2,
-    "fields":{
-      "happy": "True",
-      "sad": "False",
-      "celebration": "False"
-    }
-  },
-  {
-    "model":"musicrater.emojis",
-    "pk":3,
-    "fields":{
-      "happy": "False",
-      "sad": "True",
-      "celebration": "True"
-    }
-  },
-  {
-    "model":"musicrater.emojis",
-    "pk":4,
-    "fields":{
-      "happy": "True",
-      "sad": "True",
-      "celebration": "False"
-    }
-  },
-  {
-     "model":"musicrater.ratings",
-     "pk":1,
-     "fields":{
-        "username":"Amelia-Earhart",
-        "song":"Freeway",
-        "rating":3,
-        "emoji": 1
-     }
-  },
-  {
-     "model":"musicrater.ratings",
-     "pk":2,
-     "fields":{
-        "username":"Amelia-Earhart",
-        "song":"Days of Wine and Roses",
-        "rating":4,
-        "emoji": 2
-     }
-  },
-  {
-     "model":"musicrater.ratings",
-     "pk":3,
-     "fields":{
-        "username":"Otto",
-        "song":"Days of Wine and Roses",
-        "rating":5,
-        "emoji": 3
-     }
-  },
-  {
-     "model":"musicrater.ratings",
-     "pk":4,
-     "fields":{
-        "username":"Amelia-Earhart",
-        "song":"These Walls",
-        "rating":4,
-        "emoji": 4
-     }
-  }
-
+	{
+		"model": "musicrater.Users",
+		"pk": "Amelia-Earhart",
+		"fields": {
+			"password": "Youaom139&yu7"
+		}
+	},
+	{
+		"model": "musicrater.Users",
+		"pk": "Otto",
+		"fields": {
+			"password": "StarWars2*"
+		}
+	},
+	{
+		"model": "musicrater.artists",
+		"pk": "Days of Wine and Roses",
+		"fields": {
+			"artist": "Bill Evans"
+		}
+	},
+	{
+		"model": "musicrater.artists",
+		"pk": "Freeway",
+		"fields": {
+			"artist": "Aimee Mann"
+		}
+	},
+	{
+		"model": "musicrater.artists",
+		"pk": "These Walls",
+		"fields": {
+			"artist": "Kendrick Lamar"
+		}
+	},
+	{
+		"model": "musicrater.emojis",
+		"pk": 1,
+		"fields": {
+			"happy": "True",
+			"sad": "False",
+			"celebration": "True"
+		}
+	},
+	{
+		"model": "musicrater.emojis",
+		"pk": 2,
+		"fields": {
+			"happy": "True",
+			"sad": "False",
+			"celebration": "False"
+		}
+	},
+	{
+		"model": "musicrater.emojis",
+		"pk": 3,
+		"fields": {
+			"happy": "False",
+			"sad": "True",
+			"celebration": "True",
+			"song": "Days of Wine and Roses"
+		}
+	},
+	{
+		"model": "musicrater.emojis",
+		"pk": 4,
+		"fields": {
+			"happy": "True",
+			"sad": "True",
+			"celebration": "False",
+			"song": "Days of Wine and Roses"
+		}
+	},
+	{
+		"model": "musicrater.ratings",
+		"pk": 1,
+		"fields": {
+			"username": "Amelia-Earhart",
+			"song": "Freeway",
+			"rating": 3
+		}
+	},
+	{
+		"model": "musicrater.ratings",
+		"pk": 2,
+		"fields": {
+			"username": "Amelia-Earhart",
+			"song": "Days of Wine and Roses",
+			"rating": 4
+		}
+	},
+	{
+		"model": "musicrater.ratings",
+		"pk": 3,
+		"fields": {
+			"username": "Otto",
+			"song": "Days of Wine and Roses",
+			"rating": 5
+		}
+	},
+	{
+		"model": "musicrater.ratings",
+		"pk": 4,
+		"fields": {
+			"username": "Amelia-Earhart",
+			"song": "These Walls",
+			"rating": 4
+		}
+	}
 ]

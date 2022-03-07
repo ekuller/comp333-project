@@ -18,11 +18,11 @@ class Artists(models.Model):
 
 class Emojis(models.Model):
     id = models.AutoField(primary_key=True)
-    happy = models.BooleanField()
-    sad = models.BooleanField()
-    celebration = models.BooleanField()
-    username= models.ForeignKey(Users, on_delete=models.CASCADE, to_field='username')
-    song=models.ForeignKey(Artists, on_delete=models.CASCADE, to_field='song')
+    happy = models.BooleanField(default=False)
+    sad = models.BooleanField(default=False)
+    celebration = models.BooleanField(default=False)
+    username= models.ForeignKey(Users, on_delete=models.CASCADE, to_field='username', null=True)
+    song=models.ForeignKey(Artists, on_delete=models.CASCADE, to_field='song', null=True)
 
 class Ratings(models.Model):
     id = models.AutoField(primary_key=True)
