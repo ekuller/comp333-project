@@ -34,6 +34,21 @@
                     if ($conn->connect_error) {
                         die("Connection failed: " . $conn->connect_error);
                     }
+
+                    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+                      print_r($_POST);
+                        if (empty($_POST["user"])) {
+                          $nameErr = "Name is required";
+                        } 
+                        else {
+                          $name = str_replace("'","\'",$_POST["user"]);
+                          $password = str_replace("'","\'",$_POST["pwd"]);
+                          $sql = "INSERT INTO users (username, password) VALUES ('$name','$password')";
+                          print_r($sql);
+                          mysqli_query($conn, $sql);
+                        }
+                    }
+
                     $username = str_replace("'","\'",$_REQUEST['name']); //In case username contains an apostrophe
                     if(!empty($username)){
                         $sql_query = "SELECT song, rating FROM ratings WHERE username = ('$username')";
