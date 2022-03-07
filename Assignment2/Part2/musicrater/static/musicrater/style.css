@@ -51,15 +51,19 @@ h1 {
 }
 
 .v-center {
-	padding-top: 17vh;
+	padding-top: 10vh;
+}
+
+.emoji {
+	font-size: 3rem;
+	border: none;
+	background: white;
 }
 
 input {
 	border-style: groove;
 	border-color: black;
 }
-
-
 
 /*
 .no-outline:focus {

@@ -18,16 +18,17 @@ class Artists(models.Model):
 
 class EmojiReactions(models.Model):
     id = models.AutoField(primary_key=True)
-    happy = models.BooleanField
-    sad = models.BooleanField
-    celebration = models.BooleanField
+    happy = models.BooleanField()
+    sad = models.BooleanField()
+    celebration = models.BooleanField()
+    username= models.ForeignKey(Users, on_delete=models.CASCADE, to_field='username')
+    song=models.ForeignKey(Artists, on_delete=models.CASCADE, to_field='song')
 
 class Ratings(models.Model):
     id = models.AutoField(primary_key=True)
     username= models.ForeignKey(Users, on_delete=models.CASCADE, to_field='username')
     song=models.ForeignKey(Artists, on_delete=models.CASCADE, to_field='song')
     rating=models.IntegerField()
-    emoji = models.ForeignKey(EmojiReactions, on_delete=models.SET_NULL, to_field = 'id', null = True)
     class Meta:
         verbose_name_plural = "Ratings"
     def __str__(self):

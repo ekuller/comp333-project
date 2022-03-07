@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.urls import reverse
-from .models import Users, Artists, Ratings
+from .models import Users, Artists, Ratings, EmojiReactions
 import time
 
 def index(request):
@@ -51,3 +51,23 @@ def retrieve(request):
             })
     else:
         return HttpResponseRedirect('/rater')
+
+def retrieveByEmoji(request):
+    if request.method=='POST':
+        if request.POST.get("emoji"):
+            emojiNames={"😁":"happy","🥺":"sad","🥳":"celebration"}
+            emoji=emojiNames[request.POST.get("emoji")]
+            emoji_percentage={}
+            songs= Artists.objects.values_list('song', flat=True)
+            for s in songs:
+                reactions=EmojiReactions.objects.filter(song=s)
+                songReactions=reactions.count()
+                emojiSongCount=EmojiReactions.objects.filter(emoji=True).count()
+                emoji_percentage[s]=emojiSongCount/songReactions
+            return render(request, 'musicrater/index.html', {
+                'emoji_report': emoji_percentage,
+                'emoji': emoji
+             })
+            
+        
+    return HttpResponseRedirect('/rater')
