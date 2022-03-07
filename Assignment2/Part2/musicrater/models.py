@@ -16,6 +16,12 @@ class Artists(models.Model):
     def __str__(self):
         return (self.song + " - " + self.artist)
 
+class EmojiReactions(models.Model):
+    id = models.AutoField(primary_key=True)
+    happy = models.BooleanField
+    sad = models.BooleanField
+    celebration = models.BooleanField
+
 class Ratings(models.Model):
     id = models.AutoField(primary_key=True)
     username= models.ForeignKey(Users, on_delete=models.CASCADE, to_field='username')
@@ -27,11 +33,7 @@ class Ratings(models.Model):
     def __str__(self):
         return (self.username.username + " gave " + self.song.song + " a " + str(self.rating))
 
-class EmojiReactions(models.Model):
-    id = models.AutoField(primary_key=True)
-    happy = models.BooleanField
-    sad = models.BooleanField
-    celebration = models.BooleanField
+
     
     
     
