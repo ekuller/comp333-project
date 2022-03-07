@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.urls import reverse
-from .models import Users, Artists, Ratings
+from .models import Users, Artists, Ratings, Emojis
 import time
 
 def index(request):
