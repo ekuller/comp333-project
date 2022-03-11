@@ -23,6 +23,6 @@ python3 manage.py runserver
 
 4. Go to [http://127.0.0.1:8000/rater/](http://127.0.0.1:8000/rater/) to access the app
 
-### Notes on Part b
-
+### (b) Extend the web app by adding a new table
+#### Notes on Part b:
 We have added a table that stores users' reactions to songs represented by emojis. With the UI you can retrieve a list of songs that have been reacted to with a certain emoji along with the percent of reactions to that song that included the given emoji.
