@@ -1,4 +1,6 @@
-Open XAMPP. Under Services start Apache and MySQL. Under Network enable localhost:8080. Go to [localhost:8080](http://localhost:8080).
+### Directions for creating the database and running the php app
+
+Open XAMPP. Under Services start Apache and MySQL. Under Network enable localhost:8080. Under Volume mount /opt/lampp. Then go to the htdocs directory in the new mounted lampp directory. Paste the index.php from our Part1 directory into the aforementioned htdocs directory. Go to [localhost:8080/phpmyadmin](http://localhost:8080/phpmyadmin/). Then under SQL run the following commands in order to create the necessary database.
 
 Create database named music_db.
 
@@ -46,3 +48,5 @@ INSERT INTO ratings (username, song, rating) VALUES
 ('Otto','Days of Wine and Roses', 5),
 ('Amelia-Earhart','These Walls', 4);
 ```
+
+Visit [localhost:8080](http://localhost:8080)
