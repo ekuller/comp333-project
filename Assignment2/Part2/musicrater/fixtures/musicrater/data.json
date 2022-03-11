@@ -40,7 +40,9 @@
 		"fields": {
 			"happy": "True",
 			"sad": "False",
-			"celebration": "True"
+			"celebration": "True",
+			"username": "Otto",
+			"song": "These Walls"
 		}
 	},
 	{
@@ -49,7 +51,10 @@
 		"fields": {
 			"happy": "True",
 			"sad": "False",
-			"celebration": "False"
+			"celebration": "False",
+			"username": "Otto",
+			"song": "Freeway"
+
 		}
 	},
 	{
@@ -59,6 +64,7 @@
 			"happy": "False",
 			"sad": "True",
 			"celebration": "True",
+			"username": "Otto",
 			"song": "Days of Wine and Roses"
 		}
 	},
@@ -69,6 +75,7 @@
 			"happy": "True",
 			"sad": "True",
 			"celebration": "False",
+			"username": "Amelia-Earhart",
 			"song": "Days of Wine and Roses"
 		}
 	},
