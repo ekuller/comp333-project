@@ -1,3 +1,5 @@
+Open XAMPP. Under Services start Apache and MySQL. Under Network enable localhost:8080. Go to [localhost:8080](http://localhost:8080).
+
 Create database named music_db.
 
 ```sql
