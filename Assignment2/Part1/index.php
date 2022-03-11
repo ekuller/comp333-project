@@ -7,7 +7,7 @@
         <h1>music-db</h1>
         <h2>Registration</h2>
         <div>
-            <form method="post" action="test.php">
+            <form method="post" action="index.php">
                 <label for="name">Username:</label>
                 <input type="text" id="username1" name="name"><br>
                 <label for="pwd">Password:</label>
@@ -56,7 +56,7 @@
 
         <h2>Retrieve Songs By Username</h2>
         <div>
-            <form method="post" action="test.php">
+            <form method="post" action="index.php">
                 <label for="name">Username:</label>
                 <input type="text" id="user-ret" name="name"><br>
                 <input class="button black-text-bg white-text" type="submit" value="Retrieve" name="retRating">
