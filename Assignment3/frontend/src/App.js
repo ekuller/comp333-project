@@ -1,39 +1,16 @@
-import logo from "./logo.svg";
-import "./App.css";
+import React, { Component } from "react";
+import { render } from "react-dom";
+import LoginPage from "./LoginPage";
 
-// fetch("is-authenticated")
-// 	.then((response) => response.json())
-// 	.then((data) => {
-// 		this.setState({ spotifyAuthenticated: data.status });
-// 		console.log(data.status);
-// 		if (!data.status) {
-// 			fetch("get-auth-url")
-// 				.then((response) => response.json())
-// 				.then((data) => {
-// 					window.location.replace(data.url);
-// 				});
-// 		}
-// 	});
+export default class App extends Component {
+	constructor(props) {
+		super(props);
+	}
 
-function App() {
-	return (
-		<div className="App">
-			<header className="App-header">
-				<img src={logo} className="App-logo" alt="logo" />
-				<p>
-					Edit <code>src/App.js</code> and save to reload.
-				</p>
-				<a
-					className="App-link"
-					href="https://reactjs.org"
-					target="_blank"
-					rel="noopener noreferrer"
-				>
-					Learn React
-				</a>
-			</header>
-		</div>
-	);
+	render() {
+		return <LoginPage />;
+	}
 }
 
-export default App;
+const appDiv = document.getElementById("root");
+render(<App />, appDiv);
