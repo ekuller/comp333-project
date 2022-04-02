@@ -126,7 +126,7 @@ def spotify_callback(request, format=None):
     update_or_create_user_tokens(
         request.session.session_key, access_token, token_type, expires_in, refresh_token)
 
-    return redirect('')
+    return HttpResponseRedirect('/rater')
 
 class IsAuthenticated(APIView):
     def get(self, request, format=None):
