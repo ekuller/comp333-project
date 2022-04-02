@@ -1,14 +1,22 @@
 import React, { Component } from "react";
 import { render } from "react-dom";
 import LoginPage from "./LoginPage";
+import HomePage from "./HomePage";
 
 export default class App extends Component {
 	constructor(props) {
 		super(props);
+		this.state = {
+			authenticated: false,
+		};
 	}
 
 	render() {
-		return <LoginPage />;
+		if (this.state.authenticated) {
+			return <HomePage />;
+		} else {
+			return <LoginPage />;
+		}
 	}
 }
 
