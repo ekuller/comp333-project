@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "react-tabs/style/react-tabs.css";
+import YourRatings from "./YourRatings";
 
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import classnames from "classnames";
@@ -10,12 +11,19 @@ export default class HomePage extends React.Component {
 		this.state = {
 			authenticated: false,
 		};
+		this.getUser();
+	}
+
+	getUser() {
+		fetch("http://127.0.0.1:8000/rater/get-user").then((response) =>
+			console.log(response.json())
+		);
 	}
 
 	render() {
 		return (
 			<div>
-				Welcome
+				Welcome {this.user}
 				<Tabs>
 					<TabList>
 						<Tab>Listen & Rate</Tab>
@@ -27,7 +35,7 @@ export default class HomePage extends React.Component {
 						<h2>Any content 1</h2>
 					</TabPanel>
 					<TabPanel>
-						<h2>Any content 2</h2>
+						<YourRatings />
 					</TabPanel>
 					<TabPanel>
 						<h2>Any content 3</h2>

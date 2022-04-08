@@ -96,7 +96,8 @@ class AuthURL(APIView):
             'scope': scopes,
             'response_type': 'code',
             'redirect_uri': REDIRECT_URI,
-            'client_id': CLIENT_ID
+            'client_id': CLIENT_ID,
+            'show_dialog': "true"
         }).prepare().url
 
         return Response({'url': url}, status=status.HTTP_200_OK)
@@ -107,26 +108,31 @@ def spotify_callback(request, format=None):
     error = request.GET.get('error')
 
     response = post('https://accounts.spotify.com/api/token', data={
-        'grant_type': 'authorization_code',
+        'grant_type': "authorization_code",
         'code': code,
         'redirect_uri': REDIRECT_URI,
         'client_id': CLIENT_ID,
         'client_secret': CLIENT_SECRET
     }).json()
 
+    print(response)
+
     access_token = response.get('access_token')
     token_type = response.get('token_type')
     refresh_token = response.get('refresh_token')
     expires_in = response.get('expires_in')
+    print(expires_in)
     error = response.get('error')
+    request.session.create()
 
     if not request.session.exists(request.session.session_key):
         request.session.create()
-
+         
     update_or_create_user_tokens(
         request.session.session_key, access_token, token_type, expires_in, refresh_token)
 
-    return HttpResponseRedirect('http://localhost:3000/')
+    return redirect("http://localhost:3000/")
+
 
 class IsAuthenticated(APIView):
     def get(self, request, format=None):
@@ -134,5 +140,17 @@ class IsAuthenticated(APIView):
             self.request.session.session_key)
         return Response({'status': is_authenticated}, status=status.HTTP_200_OK)
 
+class UserName(APIView):
+    def get(self, request, format=None):
+        host = self.request.session.session_key
+        endpoint = ""
+        response = execute_spotify_api_request(host, endpoint)
+        print(response)
+        name=response.get("display_name")
+        if 'error' in response or 'display_name' not in response:
+            return Response({}, status=status.HTTP_204_NO_CONTENT)
 
+    
+        return Response({'name':name, "host": host}, status=status.HTTP_200_OK)
+""
 

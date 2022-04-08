@@ -25,6 +25,7 @@ export default class LoginPage extends React.Component {
 				<Button onClick={this.authenticateSpotify} type="submit">
 					Login Or Signup With Spotify
 				</Button>
+				<HomePage />
 			</div>
 		);
 	}

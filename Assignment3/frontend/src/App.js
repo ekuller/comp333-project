@@ -13,9 +13,9 @@ export default class App extends Component {
 
 	render() {
 		if (this.state.authenticated) {
-			return <HomePage />;
+			return <LoginPage />;
 		} else {
-			return <HomePage />;
+			return <LoginPage />;
 		}
 	}
 }
