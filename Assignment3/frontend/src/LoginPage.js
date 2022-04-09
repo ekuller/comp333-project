@@ -5,12 +5,12 @@ import { Button } from "reactstrap";
 
 export default class LoginPage extends React.Component {
 	authenticateSpotify() {
-		fetch("http://localhost:8000/rater/is-authenticated")
+		fetch("http://127.0.0.1:8000/rater/is-authenticated")
 			.then((response) => response.json())
 			.then((data) => {
 				console.log(data);
 				if (data.status === false) {
-					fetch("http://localhost:8000/rater/get-auth-url")
+					fetch("http://127.0.0.1:8000/rater/get-auth-url")
 						.then((response) => response.json())
 						.then((data) => {
 							window.location.replace(data.url);

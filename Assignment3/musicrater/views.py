@@ -10,7 +10,7 @@ from rest_framework import status
 from .util import *
 
 def index(request):
-    return render(request, 'musicrater/index.html')
+    return render(request, '../frontendbuild/index.html')
     
 def register(request):
     if request.method=='POST':
@@ -127,22 +127,26 @@ def spotify_callback(request, format=None):
 
     if not request.session.exists(request.session.session_key):
         request.session.create()
-         
+
     update_or_create_user_tokens(
         request.session.session_key, access_token, token_type, expires_in, refresh_token)
+    
+    response = HttpResponseRedirect('http://localhost:3000/')
+    response.set_cookie(key="sessionid", value=request.session.session_key)
 
-    return redirect("http://localhost:3000/")
-
+    return response
 
 class IsAuthenticated(APIView):
     def get(self, request, format=None):
-        is_authenticated = is_spotify_authenticated(
-            self.request.session.session_key)
+        host=self.request.session.session_key
+        is_authenticated = is_spotify_authenticated(host)
+        print("SESSION KEY",self.request.session.session_key)
         return Response({'status': is_authenticated}, status=status.HTTP_200_OK)
 
 class UserName(APIView):
     def get(self, request, format=None):
         host = self.request.session.session_key
+        print("REQUEST",self.request.session.session_key)
         endpoint = ""
         response = execute_spotify_api_request(host, endpoint)
         print(response)

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "react-tabs/style/react-tabs.css";
 import YourRatings from "./YourRatings";
+import axios from "axios";
 
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import classnames from "classnames";
@@ -15,9 +16,9 @@ export default class HomePage extends React.Component {
 	}
 
 	getUser() {
-		fetch("http://127.0.0.1:8000/rater/get-user").then((response) =>
-			console.log(response.json())
-		);
+		axios
+			.get("http://127.0.0.1:8000/rater/get-user")
+			.then((response) => console.log(response));
 	}
 
 	render() {
