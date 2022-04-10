@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<body>
+	{% load static %}
+	<link rel="stylesheet" type="text/css" href="{% static 'musicrater/style.css' %}" />
+	<div class="h-center v-center">
+		Login Unsuccessful :( <br>
+		Please login with the credentials we provide. <br>
+	</div>
+	<script>
+		function redirect() {
+			window.location.href = "http://localhost:3000/";
+		}
+		setTimeout(redirect, 2500);
+	</script>
+</body>
+
+</html>
