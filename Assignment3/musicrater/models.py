@@ -1,12 +1,18 @@
 from django.db import models
 
-class Users(models.Model):
-    username = models.CharField(max_length=200, primary_key=True)
-    password = models.CharField(max_length=200)
+class SpotifyUsers(models.Model):
+    spotifyID = models.CharField(max_length=100, unique=True, primary_key=True)
+    display_name = models.CharField(max_length=50, unique=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+    refresh_token = models.CharField(max_length=300)
+    access_token = models.CharField(max_length=300)
+    expires_in = models.DateTimeField()
+    token_type = models.CharField(max_length=50)
+    session_id = models.CharField(max_length=50)
     class Meta:
-        verbose_name_plural = "Users"
+        verbose_name_plural = "SpotifyUsers"
     def __str__(self):
-        return self.username
+        return self.display_name
 
 class Artists(models.Model):
     song= models.CharField(max_length=200, primary_key=True)
@@ -21,14 +27,14 @@ class Emojis(models.Model):
     happy = models.BooleanField(default=False)
     sad = models.BooleanField(default=False)
     celebration = models.BooleanField(default=False)
-    username= models.ForeignKey(Users, on_delete=models.CASCADE, to_field='username', null=True)
+    username= models.ForeignKey(SpotifyUsers, on_delete=models.CASCADE, to_field='spotifyID', null=True)
     song=models.ForeignKey(Artists, on_delete=models.CASCADE, to_field='song', null=True)
     class Meta:
         verbose_name_plural = "Emojis"
 
 class Ratings(models.Model):
     id = models.AutoField(primary_key=True)
-    username= models.ForeignKey(Users, on_delete=models.CASCADE, to_field='username')
+    username= models.ForeignKey(SpotifyUsers, on_delete=models.CASCADE, to_field='spotifyID', null=True)
     song=models.ForeignKey(Artists, on_delete=models.CASCADE, to_field='song')
     rating=models.IntegerField()
     class Meta:
@@ -36,13 +42,7 @@ class Ratings(models.Model):
     def __str__(self):
         return (self.username.username + " gave " + self.song.song + " a " + str(self.rating))
 
-class SpotifyToken(models.Model):
-    user = models.CharField(max_length=50, unique=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    refresh_token = models.CharField(max_length=150)
-    access_token = models.CharField(max_length=150)
-    expires_in = models.DateTimeField()
-    token_type = models.CharField(max_length=50)
+
 
     
     

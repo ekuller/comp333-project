@@ -8,8 +8,7 @@ urlpatterns = [
     path('reg_succ', views.reg_succ, name='reg_succ'),
     path('retrieve', views.retrieve, name='retrieve'),
     path('retrieveByEmoji', views.retrieveByEmoji, name='retrieveByEmoji'),
-    path('get-auth-url', views.AuthURL.as_view()),
     path('redirect', views.spotify_callback),
-    path('is-authenticated', views.IsAuthenticated.as_view()),
-    path('get-user', views.UserName.as_view())
+    path('loginfailed', views.login_failed, name='login_failed'),
+    path('is-authenticated/<str:session_id>', views.IsAuthenticated.as_view()),
 ]
