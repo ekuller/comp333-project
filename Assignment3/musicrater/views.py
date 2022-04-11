@@ -143,3 +143,16 @@ class IsAuthenticated(APIView):
             return Response({'status': 'is_authenticated', 'display_name': user[0].display_name}, status=status.HTTP_200_OK)
         else:
             return Response({'status': 'is_not_authenticated'}, status=status.HTTP_200_OK)
+
+
+class TopSongs(APIView):
+    def get(self, request, session_id):
+        endpoint='top/tracks'
+        response=execute_spotify_api_request(session_id, endpoint)
+        tracks=[]
+        for track in response["items"]:
+            tracks.append({'song':track["name"],
+                           'id':track["id"],
+                            'url':"https://open.spotify.com/embed/track/"+track["id"]+"?utm_source=generator",
+                            'artist': track["artists"][0]["name"] }) #associating songs with first listed artist (even if multiple artists)
+        return Response({'topSongs':tracks}, status=status.HTTP_200_OK)

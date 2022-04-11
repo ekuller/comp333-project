@@ -72,9 +72,8 @@ def refresh_spotify_token(spotifyID):
     update_or_create_user(userDict)
 
 
-#I didn't touch this cuz I'm not sure how you'd like to call the APIs
 def execute_spotify_api_request(session_id, endpoint, post_=False, put_=False):
-    tokens = get_user(session_id)
+    tokens = get_user_by_session(session_id)[0]
     headers = {'Content-Type': 'application/json',
                'Authorization': "Bearer " + tokens.access_token}
 
@@ -84,6 +83,7 @@ def execute_spotify_api_request(session_id, endpoint, post_=False, put_=False):
         put(BASE_URL + endpoint, headers=headers)
 
     response = get(BASE_URL + endpoint, {}, headers=headers)
+    print(response)
     try:
         return response.json()
     except:
