@@ -13,6 +13,7 @@ export default class YourRatings extends React.Component {
 		this.state = {
 			sessionID: ReactSession.get("sessionID"),
 			modifyModal: false,
+			songs: [],
 		};
 		this.getTopSongs();
 		console.log(this.state.songs);
@@ -23,7 +24,7 @@ export default class YourRatings extends React.Component {
 			.get("http://127.0.0.1:8000/rater/get-top-songs/" + sessionId)
 			.then((res) =>
 				this.setState({
-					songs: res.data["topSongs"],
+					songs: res.data["songs"],
 				})
 			);
 	}
@@ -35,28 +36,31 @@ export default class YourRatings extends React.Component {
 	renderItems = () => {
 		const songs = this.state.songs;
 		return songs?.map((song) => (
-			<Row xs="4">
-				<Col className="w-auto">
-					<iframe
-						src={song.url}
-						width="100%"
-						height="80"
-						frameBorder="0"
-						allowFullScreen=""
-						allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-					></iframe>
-				</Col>
-				<Col className="w-auto">
-					<Button onClick={() => this.modifyRating(song.key)} type="submit">
-						Add Rating
-					</Button>
-				</Col>
-				<Col className="w-auto">
-					<Button onClick={this.deleteSong} type="submit">
-						Not Interested in Rating
-					</Button>
-				</Col>
-			</Row>
+			<div>
+				<Row className="w-auto">{song.call}</Row>
+				<Row xs="4">
+					<Col className="w-auto">
+						<iframe
+							src={song.url}
+							width="100%"
+							height="80"
+							frameBorder="0"
+							allowFullScreen=""
+							allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+						></iframe>
+					</Col>
+					<Col className="w-auto">
+						<Button onClick={() => this.modifyRating(song.key)} type="submit">
+							Add Rating
+						</Button>
+					</Col>
+					<Col className="w-auto">
+						<Button onClick={this.deleteSong} type="submit">
+							Not Interested in Rating
+						</Button>
+					</Col>
+				</Row>
+			</div>
 		));
 	};
 

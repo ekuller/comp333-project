@@ -147,12 +147,39 @@ class IsAuthenticated(APIView):
 
 class TopSongs(APIView):
     def get(self, request, session_id):
-        endpoint='top/tracks'
+        endpoint='me/top/tracks'
         response=execute_spotify_api_request(session_id, endpoint)
         tracks=[]
-        for track in response["items"]:
+        if len(response["items"])<5:
+            numTopSongs=len(response["items"])
+        else: 
+            numTopSongs=5
+        numOther= 5- len(response["items"])
+        for track in response["items"][:numTopSongs]:
             tracks.append({'song':track["name"],
-                           'id':track["id"],
+                        'key':track["id"],
                             'url':"https://open.spotify.com/embed/track/"+track["id"]+"?utm_source=generator",
-                            'artist': track["artists"][0]["name"] }) #associating songs with first listed artist (even if multiple artists)
-        return Response({'topSongs':tracks}, status=status.HTTP_200_OK)
+                            'artist': track["artists"][0]["name"],
+                            'call':"Top Played Song"}) #associating songs with first listed artist (even if multiple artists)
+            endpoint="recommendations?limit=1&seed_genres=Pop&seed_tracks="+track["id"]
+            recResponse=execute_spotify_api_request(session_id, endpoint)
+            track=recResponse['tracks'][0]
+            tracks.append({'song':track["name"],
+                        'key':track["id"],
+                            'url':"https://open.spotify.com/embed/track/"+track["id"]+"?utm_source=generator",
+                            'artist': track["artists"][0]["name"],
+                            'call':"Recomendation"}) #associating songs with first listed artist (even if multiple artists)
+        if numOther>0:
+            endpoint="playlists/37i9dQZF1DX0b1hHYQtJjp/tracks?offset=0&limit="+str(numOther*2)
+            otherResponse=execute_spotify_api_request(session_id, endpoint)
+            other=otherResponse["items"]
+            for i in other:
+                track=i["track"]
+                tracks.append({'song':track["name"],
+                                'key':track["id"],
+                                'url':"https://open.spotify.com/embed/track/"+track["id"]+"?utm_source=generator",
+                                'artist': track["artists"][0]["name"],
+                                'call':"Just Good Music"}) 
+                
+                
+        return Response({'songs':tracks}, status=status.HTTP_200_OK)
