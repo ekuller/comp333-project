@@ -83,6 +83,19 @@ def retrieveByEmoji(request):
                 'emoji_report': emoji_percentage,
                 'emoji': emoji
              })
+
+
+def rate(request):
+    sessionID = request.POST.get('state')
+    spotifyId= get_user_by_session(sessionID)
+    if request.method=='POST':
+        if request.POST.get("rating"):
+                r=Ratings()
+                r.rating=request.POST.get("rating")
+                r.username= spotifyId
+                r.song=request.POST.get("song")
+                r.save()
+    HttpResponseRedirect('http://localhost:3000/')
             
         
     return HttpResponseRedirect('/rater')
@@ -144,7 +157,25 @@ class IsAuthenticated(APIView):
         else:
             return Response({'status': 'is_not_authenticated'}, status=status.HTTP_200_OK)
 
+# makes api call using the host (sessionId) and returns a reccomended track based on the passed track id
+def getRec(host, track):
+    endpoint="recommendations?limit=1&seed_genres=Pop&seed_tracks="+track
+    recResponse=execute_spotify_api_request(host, endpoint)
+    track=recResponse['tracks'][0]
+    print(recResponse)
+    return {'song':track["name"],
+                    'key':track["id"],
+                        'url':"https://open.spotify.com/embed/track/"+track["id"]+"?utm_source=generator",
+                        'artist': track["artists"][0]["name"],
+                        'call':"Recomendation"}
+    
 
+class Recomendation(APIView):
+    def get(self, request, sessionId, trackId):
+        rec = getRec(sessionId, trackId)
+        print(rec)
+        return Response({'newSong':rec}, status=status.HTTP_200_OK)
+        
 class TopSongs(APIView):
     def get(self, request, session_id):
         endpoint='me/top/tracks'
@@ -161,14 +192,15 @@ class TopSongs(APIView):
                             'url':"https://open.spotify.com/embed/track/"+track["id"]+"?utm_source=generator",
                             'artist': track["artists"][0]["name"],
                             'call':"Top Played Song"}) #associating songs with first listed artist (even if multiple artists)
-            endpoint="recommendations?limit=1&seed_genres=Pop&seed_tracks="+track["id"]
-            recResponse=execute_spotify_api_request(session_id, endpoint)
-            track=recResponse['tracks'][0]
-            tracks.append({'song':track["name"],
-                        'key':track["id"],
-                            'url':"https://open.spotify.com/embed/track/"+track["id"]+"?utm_source=generator",
-                            'artist': track["artists"][0]["name"],
-                            'call':"Recomendation"}) #associating songs with first listed artist (even if multiple artists)
+            # endpoint="recommendations?limit=1&seed_genres=Pop&seed_tracks="+track["id"]
+            # recResponse=execute_spotify_api_request(session_id, endpoint)
+            # track=recResponse['tracks'][0]
+            # tracks.append({'song':track["name"],
+            #             'key':track["id"],
+            #                 'url':"https://open.spotify.com/embed/track/"+track["id"]+"?utm_source=generator",
+            #                 'artist': track["artists"][0]["name"],
+            #                 'call':"Recomendation"}) #associating songs with first listed artist (even if multiple artists)
+            tracks.append(getRec(session_id, track["id"]))
         if numOther>0:
             endpoint="playlists/37i9dQZF1DX0b1hHYQtJjp/tracks?offset=0&limit="+str(numOther*2)
             otherResponse=execute_spotify_api_request(session_id, endpoint)

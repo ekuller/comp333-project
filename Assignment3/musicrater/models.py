@@ -17,6 +17,7 @@ class SpotifyUsers(models.Model):
 class Artists(models.Model):
     song= models.CharField(max_length=200, primary_key=True)
     artist= models.CharField(max_length=200)
+    trackId=models.CharField(max_length=200, null=True)
     class Meta:
         verbose_name_plural = "Artists"
     def __str__(self):
@@ -36,7 +37,7 @@ class Ratings(models.Model):
     id = models.AutoField(primary_key=True)
     username= models.ForeignKey(SpotifyUsers, on_delete=models.CASCADE, to_field='spotifyID', null=True)
     song=models.ForeignKey(Artists, on_delete=models.CASCADE, to_field='song')
-    rating=models.IntegerField()
+    rating=models.IntegerField(null=True)
     class Meta:
         verbose_name_plural = "Ratings"
     def __str__(self):

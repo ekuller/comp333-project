@@ -4,7 +4,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Modal from "./Modal";
 import axios from "axios";
 
-import { Container, Row, Col, Button } from "reactstrap";
+import { Container, Row, Col, Button, Badge } from "reactstrap";
 import classnames from "classnames";
 
 export default class YourRatings extends React.Component {
@@ -12,10 +12,16 @@ export default class YourRatings extends React.Component {
 		super(props);
 		this.state = {
 			sessionID: ReactSession.get("sessionID"),
+			songs: this.props.songs,
 			modifyModal: false,
-			songs: [],
+			activeSong: {
+				song: "",
+				key: "",
+				url: "",
+				artist: "",
+				call: "",
+			},
 		};
-		this.getTopSongs();
 		console.log(this.state.songs);
 	}
 	getTopSongs() {
@@ -29,15 +35,47 @@ export default class YourRatings extends React.Component {
 			);
 	}
 
-	modifyRating = () => {
-		this.setState({ modifyModal: !this.state.modifyModal });
+	swapSong = (song) => {
+		const currSongs = this.state.songs;
+		const sessionId = ReactSession.get("sessionID");
+		const index = currSongs.findIndex((element) => {
+			if (element.key === song.key) {
+				return true;
+			}
+		});
+		axios
+			.get(
+				"http://127.0.0.1:8000/rater/get-new-rec/" + sessionId + "/" + song.key
+			)
+			.then((res) => {
+				currSongs.splice(index, 1);
+				currSongs.push(res.data["newSong"]);
+				// currSongs[index] = res.data["newSong"];
+				console.log(res.data["newSong"]);
+				this.setState({
+					songs: currSongs,
+				});
+			});
+	};
+
+	notInterested = (song) => {
+		this.swapSong(song);
+	};
+
+	modifyRating = (song) => {
+		this.setState({
+			activeSong: song,
+			modifyModal: !this.state.modifyModal,
+		});
 	};
 
 	renderItems = () => {
 		const songs = this.state.songs;
 		return songs?.map((song) => (
 			<div>
-				<Row className="w-auto">{song.call}</Row>
+				<Badge color="primary" pill>
+					{song.call}
+				</Badge>
 				<Row xs="4">
 					<Col className="w-auto">
 						<iframe
@@ -50,12 +88,12 @@ export default class YourRatings extends React.Component {
 						></iframe>
 					</Col>
 					<Col className="w-auto">
-						<Button onClick={() => this.modifyRating(song.key)} type="submit">
+						<Button onClick={() => this.modifyRating(song)} type="submit">
 							Add Rating
 						</Button>
 					</Col>
 					<Col className="w-auto">
-						<Button onClick={this.deleteSong} type="submit">
+						<Button onClick={() => this.notInterested(song)} type="submit">
 							Not Interested in Rating
 						</Button>
 					</Col>
@@ -70,7 +108,7 @@ export default class YourRatings extends React.Component {
 				<div>
 					<Container>{this.renderItems()} </Container>
 				</div>
-				{this.state.modifyModal ? <Modal /> : null}
+				{this.state.modifyModal ? <Modal song={this.state.activeSong} /> : null}
 			</div>
 		);
 	}

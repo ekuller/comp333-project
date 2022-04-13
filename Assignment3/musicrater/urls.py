@@ -12,4 +12,6 @@ urlpatterns = [
     path('loginfailed', views.login_failed, name='login_failed'),
     path('is-authenticated/<str:session_id>', views.IsAuthenticated.as_view()),
     path('get-top-songs/<str:session_id>', views.TopSongs.as_view()),
+    path('get-new-rec/<str:sessionId>/<str:trackId>', views.Recomendation.as_view()),
+    path('rate', views.rate)
 ]

@@ -9,6 +9,8 @@ import {
 	FormGroup,
 	Input,
 	Label,
+	Row,
+	Col,
 } from "reactstrap";
 
 export default class CustomModal extends Component {
@@ -22,37 +24,28 @@ export default class CustomModal extends Component {
 
 		return (
 			<Modal isOpen={true} toggle={toggle}>
-				<ModalHeader toggle={toggle}>Todo Item</ModalHeader>
+				<ModalHeader toggle={toggle}>
+					Rate "{this.props.song.song}" by {this.props.song.artist}
+				</ModalHeader>
 				<ModalBody>
 					<Form>
-						<FormGroup>
-							<Label for="todo-title">Title</Label>
-							<Input
-								type="text"
-								id="todo-title"
-								name="title"
-								placeholder="Enter Todo Title"
-							/>
-						</FormGroup>
-						<FormGroup>
-							<Label for="todo-description">Description</Label>
-							<Input
-								type="text"
-								id="todo-description"
-								name="description"
-								placeholder="Enter Todo description"
-							/>
-						</FormGroup>
-						<FormGroup check>
-							<Label check>
-								<Input type="checkbox" name="completed" />
-								Completed
-							</Label>
+						<FormGroup row inline>
+							<Row>
+								<Input
+									className="w-auto"
+									type="number"
+									id="rating"
+									name="rating"
+									min="0"
+									max="5"
+								/>
+								<Col> /5</Col>
+							</Row>
 						</FormGroup>
 					</Form>
 				</ModalBody>
 				<ModalFooter>
-					<Button></Button>
+					<Button>Rate</Button>
 				</ModalFooter>
 			</Modal>
 		);

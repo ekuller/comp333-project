@@ -2,12 +2,27 @@ import React from "react";
 import "react-tabs/style/react-tabs.css";
 import YourRatings from "./YourRatings";
 import ListenRate from "./ListenRate";
-
+import axios from "axios";
+import { ReactSession } from "react-client-session";
+import { Spinner } from "reactstrap";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 
 export default class HomePage extends React.Component {
 	constructor(props) {
 		super(props);
+		this.state = {};
+		this.getTopSongs();
+	}
+
+	getTopSongs() {
+		const sessionId = ReactSession.get("sessionID");
+		axios
+			.get("http://127.0.0.1:8000/rater/get-top-songs/" + sessionId)
+			.then((res) =>
+				this.setState({
+					songs: res.data["songs"],
+				})
+			);
 	}
 
 	render() {
@@ -21,7 +36,13 @@ export default class HomePage extends React.Component {
 					</TabList>
 
 					<TabPanel>
-						<ListenRate />
+						{this.state.songs ? (
+							<ListenRate songs={this.state.songs} />
+						) : (
+							<div>
+								Loading songs just for you <Spinner />
+							</div>
+						)}
 					</TabPanel>
 					<TabPanel>
 						<YourRatings />
