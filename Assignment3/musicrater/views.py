@@ -149,8 +149,9 @@ def songExists(song):
    return Artists.objects.filter(song=song).exists()
 
 def songRated(song, user):
-    # return Ratings.objects.filter(song=song, username=user).exists()
-    return False
+    print(user, song)
+    print(Ratings.objects.filter(username=user,song=song).exists())
+    return Ratings.objects.filter(username=user,song=song).exists()
 
 class IsAuthenticated(APIView):
     def get(self, request, session_id):
@@ -170,6 +171,7 @@ def getRec(host, track, user):
         if not songRated(track["name"], user):
             break
         else: i+=1
+        if i>=len(recResponse['tracks']): return getRec(host, track["id"], user)
     print(recResponse)
     return {'song':track["name"],
                     'key':track["id"],
@@ -181,14 +183,15 @@ def getRec(host, track, user):
 
 class Recomendation(APIView):
     def get(self, request, sessionId, trackId):
-        user= get_user_by_session(sessionId)
+        user=SpotifyUsers.objects.get(session_id=sessionId).spotifyID
+        print(user)
         rec = getRec(sessionId, trackId, user)
         print(rec)
         return Response({'newSong':rec}, status=status.HTTP_200_OK)
         
 class TopSongs(APIView):
     def get(self, request, session_id):
-        user= get_user_by_session(session_id)
+        user=SpotifyUsers.objects.get(session_id=session_id).spotifyID
         endpoint='me/top/tracks'
         response=execute_spotify_api_request(session_id, endpoint)
         tracks=[]
