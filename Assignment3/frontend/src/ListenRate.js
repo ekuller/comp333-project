@@ -35,6 +35,33 @@ export default class YourRatings extends React.Component {
 			);
 	}
 
+	toggle = () => {
+		this.setState({ modifyModal: !this.state.modifyModal });
+	};
+
+	addRating(song, rating) {
+		axios.post("http://127.0.0.1:8000/rater/rate", {
+			song: song.song,
+			rating: rating,
+			username: this.props.username,
+		});
+	}
+
+	handleSubmit = (song, rating) => {
+		this.toggle();
+
+		if (!song.exists) {
+			axios
+				.post("http://127.0.0.1:8000/rater/song", {
+					song: song.song,
+					artist: song.artist,
+					trackId: song.key,
+				})
+				.then(() => this.addRating(song.song, rating));
+		} else this.addRating(song.song, rating);
+		this.swapSong(song);
+	};
+
 	swapSong = (song) => {
 		const currSongs = this.state.songs;
 		const sessionId = ReactSession.get("sessionID");
@@ -108,7 +135,13 @@ export default class YourRatings extends React.Component {
 				<div>
 					<Container>{this.renderItems()} </Container>
 				</div>
-				{this.state.modifyModal ? <Modal song={this.state.activeSong} /> : null}
+				{this.state.modifyModal ? (
+					<Modal
+						song={this.state.activeSong}
+						toggle={this.toggle}
+						onSave={this.handleSubmit}
+					/>
+				) : null}
 			</div>
 		);
 	}

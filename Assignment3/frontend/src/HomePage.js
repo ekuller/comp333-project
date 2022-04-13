@@ -37,7 +37,10 @@ export default class HomePage extends React.Component {
 
 					<TabPanel>
 						{this.state.songs ? (
-							<ListenRate songs={this.state.songs} />
+							<ListenRate
+								songs={this.state.songs}
+								username={this.props.username}
+							/>
 						) : (
 							<div>
 								Loading songs just for you <Spinner />

@@ -1,7 +1,16 @@
 from django.urls import include, path
 from . import views
+from rest_framework import routers
 
 app_name = 'musicrater'
+
+
+rRouter = routers.DefaultRouter()
+rRouter.register(r'', views.RateView, 'musicrater')
+
+sRouter = routers.DefaultRouter()
+sRouter.register(r'', views.SongView, 'musicrater')
+
 urlpatterns = [
     path('', views.index, name='index'),
     path('register', views.register, name='register'),
@@ -13,5 +22,6 @@ urlpatterns = [
     path('is-authenticated/<str:session_id>', views.IsAuthenticated.as_view()),
     path('get-top-songs/<str:session_id>', views.TopSongs.as_view()),
     path('get-new-rec/<str:sessionId>/<str:trackId>', views.Recomendation.as_view()),
-    path('rate', views.rate)
+    path('rate',include(rRouter.urls) ),
+    path('song',include(sRouter.urls) )
 ]

@@ -16,8 +16,14 @@ import {
 export default class CustomModal extends Component {
 	constructor(props) {
 		super(props);
-		this.state = {};
+		this.state = {
+			song: this.props.song,
+		};
 	}
+
+	handleChange = (e) => {
+		this.setState({ rating: e.target.value });
+	};
 
 	render() {
 		const { toggle, onSave } = this.props;
@@ -36,6 +42,7 @@ export default class CustomModal extends Component {
 									type="number"
 									id="rating"
 									name="rating"
+									onChange={this.handleChange}
 									min="0"
 									max="5"
 								/>
@@ -45,7 +52,9 @@ export default class CustomModal extends Component {
 					</Form>
 				</ModalBody>
 				<ModalFooter>
-					<Button>Rate</Button>
+					<Button onClick={() => onSave(this.state.song, this.state.rating)}>
+						Rate
+					</Button>
 				</ModalFooter>
 			</Modal>
 		);

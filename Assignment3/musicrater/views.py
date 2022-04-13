@@ -7,6 +7,8 @@ from .credentials import REDIRECT_URI, CLIENT_SECRET, CLIENT_ID
 from rest_framework.response import Response
 from rest_framework import status
 from .util import *
+from rest_framework import viewsets
+from .serializers import RateSerializer, SongSerializer
 
 def index(request):
     return render(request, '../frontendbuild/index.html')
@@ -85,20 +87,13 @@ def retrieveByEmoji(request):
              })
 
 
-def rate(request):
-    sessionID = request.POST.get('state')
-    spotifyId= get_user_by_session(sessionID)
-    if request.method=='POST':
-        if request.POST.get("rating"):
-                r=Ratings()
-                r.rating=request.POST.get("rating")
-                r.username= spotifyId
-                r.song=request.POST.get("song")
-                r.save()
-    HttpResponseRedirect('http://localhost:3000/')
-            
-        
-    return HttpResponseRedirect('/rater')
+class RateView(viewsets.ModelViewSet):
+    serializer_class = RateSerializer 
+    queryset = Ratings.objects.all()
+
+class SongView(viewsets.ModelViewSet):
+    serializer_class = SongSerializer 
+    queryset = Artists.objects.all()
 
 
 def spotify_callback(request, format=None):
@@ -149,11 +144,15 @@ def spotify_callback(request, format=None):
 def login_failed(request):
     return render(request, 'musicrater/login_failed.html')
 
+def songExists(song):
+   return bool(Artists.objects.filter(song=song))
+    
+    
 class IsAuthenticated(APIView):
     def get(self, request, session_id):
         user = get_user_by_session(session_id)
         if user.exists():
-            return Response({'status': 'is_authenticated', 'display_name': user[0].display_name}, status=status.HTTP_200_OK)
+            return Response({'status': 'is_authenticated', 'display_name': user[0].display_name, 'username': user[0].spotifyID}, status=status.HTTP_200_OK)
         else:
             return Response({'status': 'is_not_authenticated'}, status=status.HTTP_200_OK)
 
@@ -167,7 +166,8 @@ def getRec(host, track):
                     'key':track["id"],
                         'url':"https://open.spotify.com/embed/track/"+track["id"]+"?utm_source=generator",
                         'artist': track["artists"][0]["name"],
-                        'call':"Recomendation"}
+                        'call':"Recomendation",
+                        'exists': songExists(track["name"])}
     
 
 class Recomendation(APIView):
@@ -191,15 +191,8 @@ class TopSongs(APIView):
                         'key':track["id"],
                             'url':"https://open.spotify.com/embed/track/"+track["id"]+"?utm_source=generator",
                             'artist': track["artists"][0]["name"],
-                            'call':"Top Played Song"}) #associating songs with first listed artist (even if multiple artists)
-            # endpoint="recommendations?limit=1&seed_genres=Pop&seed_tracks="+track["id"]
-            # recResponse=execute_spotify_api_request(session_id, endpoint)
-            # track=recResponse['tracks'][0]
-            # tracks.append({'song':track["name"],
-            #             'key':track["id"],
-            #                 'url':"https://open.spotify.com/embed/track/"+track["id"]+"?utm_source=generator",
-            #                 'artist': track["artists"][0]["name"],
-            #                 'call':"Recomendation"}) #associating songs with first listed artist (even if multiple artists)
+                            'call':"Top Played Song",
+                            'exists': songExists(track["name"])}) #associating songs with first listed artist (even if multiple artists)
             tracks.append(getRec(session_id, track["id"]))
         if numOther>0:
             endpoint="playlists/37i9dQZF1DX0b1hHYQtJjp/tracks?offset=0&limit="+str(numOther*2)
@@ -211,7 +204,8 @@ class TopSongs(APIView):
                                 'key':track["id"],
                                 'url':"https://open.spotify.com/embed/track/"+track["id"]+"?utm_source=generator",
                                 'artist': track["artists"][0]["name"],
-                                'call':"Just Good Music"}) 
+                                'call':"Just Good Music",
+                                'exists': songExists(track["name"])}) 
                 
                 
         return Response({'songs':tracks}, status=status.HTTP_200_OK)

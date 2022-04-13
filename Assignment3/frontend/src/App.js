@@ -35,6 +35,7 @@ export default class App extends Component {
 			.then((login) => {
 				if (login.status === "is_authenticated") {
 					this.setState({ authenticated: login.display_name });
+					this.setState({ username: login.username });
 				} else {
 					return true;
 				}
@@ -63,7 +64,9 @@ export default class App extends Component {
 					handleLogout={this.handleLogout}
 					sessionID={this.state.sessionID}
 				></LoginPage>
-				{this.state.authenticated ? <HomePage /> : null}
+				{this.state.authenticated ? (
+					<HomePage username={this.state.username} />
+				) : null}
 			</div>
 		);
 	}
