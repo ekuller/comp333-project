@@ -23,16 +23,7 @@ export default class YourRatings extends React.Component {
 			},
 		};
 		console.log(this.state.songs);
-	}
-	getTopSongs() {
-		const sessionId = ReactSession.get("sessionID");
-		axios
-			.get("http://127.0.0.1:8000/rater/get-top-songs/" + sessionId)
-			.then((res) =>
-				this.setState({
-					songs: res.data["songs"],
-				})
-			);
+		if (this.props.yourRatings) this.getRatings();
 	}
 
 	toggle = () => {
@@ -40,7 +31,7 @@ export default class YourRatings extends React.Component {
 	};
 
 	addRating(song, rating) {
-		axios.post("http://127.0.0.1:8000/rater/rate", {
+		axios.post("http://127.0.0.1:8000/rater/rate/", {
 			song: song,
 			rating: rating,
 			username: this.props.username,
@@ -49,16 +40,34 @@ export default class YourRatings extends React.Component {
 
 	handleSubmit = (song, rating) => {
 		this.toggle();
-		if (!song.exists) {
-			axios
-				.post("http://127.0.0.1:8000/rater/song", {
-					song: song.song,
-					artist: song.artist,
-					trackId: song.key,
-				})
-				.then(() => this.addRating(song.song, rating));
-		} else this.addRating(song.song, rating);
-		this.swapSong(song);
+		if (this.props.yourRatings) {
+			axios.put("http://127.0.0.1:8000/rater/rate/" + song.key + "/", {
+				rating: rating,
+				song: song.song,
+				username: this.props.username,
+			});
+			const currSongs = this.state.songs;
+			const index = currSongs.findIndex((element) => {
+				if (element.key === song.key) {
+					return true;
+				}
+			});
+			currSongs[index].rating = rating;
+			this.setState({
+				songs: currSongs,
+			});
+		} else {
+			if (!song.exists) {
+				axios
+					.post("http://127.0.0.1:8000/rater/song", {
+						song: song.song,
+						artist: song.artist,
+						trackId: song.key,
+					})
+					.then(() => this.addRating(song.song, rating));
+			} else this.addRating(song.song, rating);
+			this.swapSong(song);
+		}
 	};
 
 	swapSong = (song) => {
@@ -94,14 +103,33 @@ export default class YourRatings extends React.Component {
 			modifyModal: !this.state.modifyModal,
 		});
 	};
+	getRatings() {
+		const user = this.props.username;
+		axios.get("http://127.0.0.1:8000/rater/get-ratings/" + user).then((res) =>
+			this.setState(
+				{
+					songs: res.data,
+				},
+				console.log(res.data)
+			)
+		);
+	}
+
+	deleteRating(id) {
+		axios
+			.delete("http://127.0.0.1:8000/rater/rate/" + id + "/")
+			.then(() => this.getRatings());
+	}
 
 	renderItems = () => {
 		const songs = this.state.songs;
 		return songs?.map((song) => (
 			<div>
-				<Badge color="primary" pill>
-					{song.call}
-				</Badge>
+				{this.props.yourRatings ? null : (
+					<Badge color="primary" pill>
+						{song.call}
+					</Badge>
+				)}
 				<Row xs="4">
 					<Col className="w-auto">
 						<iframe
@@ -113,15 +141,30 @@ export default class YourRatings extends React.Component {
 							allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
 						></iframe>
 					</Col>
+					{this.props.yourRatings ? (
+						<Col className="w-auto">{song.rating}/5</Col>
+					) : null}
 					<Col className="w-auto">
-						<Button onClick={() => this.modifyRating(song)} type="submit">
-							Add Rating
-						</Button>
+						{this.props.yourRatings ? (
+							<Button onClick={() => this.modifyRating(song)} type="submit">
+								Modify Rating
+							</Button>
+						) : (
+							<Button onClick={() => this.modifyRating(song)} type="submit">
+								Add Rating
+							</Button>
+						)}
 					</Col>
 					<Col className="w-auto">
-						<Button onClick={() => this.notInterested(song)} type="submit">
-							Not Interested in Rating
-						</Button>
+						{this.props.yourRatings ? (
+							<Button onClick={() => this.deleteRating(song.key)} type="submit">
+								Delete Rating
+							</Button>
+						) : (
+							<Button onClick={() => this.notInterested(song)} type="submit">
+								Not Interested in Rating
+							</Button>
+						)}
 					</Col>
 				</Row>
 			</div>

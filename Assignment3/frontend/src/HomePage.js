@@ -1,6 +1,5 @@
 import React from "react";
 import "react-tabs/style/react-tabs.css";
-import YourRatings from "./YourRatings";
 import ListenRate from "./ListenRate";
 import axios from "axios";
 import { ReactSession } from "react-client-session";
@@ -40,6 +39,7 @@ export default class HomePage extends React.Component {
 							<ListenRate
 								songs={this.state.songs}
 								username={this.props.username}
+								yourRatings={false}
 							/>
 						) : (
 							<div>
@@ -48,7 +48,7 @@ export default class HomePage extends React.Component {
 						)}
 					</TabPanel>
 					<TabPanel>
-						<YourRatings username={this.props.username} />
+						<ListenRate username={this.props.username} yourRatings={true} />
 					</TabPanel>
 					<TabPanel>
 						<h2>Any content 3</h2>

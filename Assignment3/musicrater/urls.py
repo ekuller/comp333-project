@@ -23,6 +23,6 @@ urlpatterns = [
     path('get-top-songs/<str:session_id>', views.TopSongs.as_view()),
     path('get-ratings/<str:spotifyID>', views.UserRatings.as_view()),
     path('get-new-rec/<str:sessionId>/<str:trackId>', views.Recomendation.as_view()),
-    path('rate',include(rRouter.urls) ),
+    path('rate/',include(rRouter.urls) ),
     path('song',include(sRouter.urls) )
 ]
