@@ -2,6 +2,8 @@ import React, { useState } from "react";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import Modal from "./Modal";
+import axios from "axios";
+import { ReactSession } from "react-client-session";
 
 import { Container, Row, Col, Button } from "reactstrap";
 import classnames from "classnames";
@@ -11,21 +13,21 @@ export default class YourRatings extends React.Component {
 		super(props);
 		this.state = {
 			modifyModal: false,
-			ratings: [
-				{
-					key: 1,
-					url:
-						"https://open.spotify.com/embed/track/7lEptt4wbM0yJTvSG5EBof?utm_source=generator",
-					rating: 4,
-				},
-				{
-					key: 2,
-					url:
-						"https://open.spotify.com/embed/track/7lEptt4wbM0yJTvSG5EBof?utm_source=generator",
-					rating: 3,
-				},
-			],
+			ratings: [],
 		};
+		this.getRatings();
+	}
+
+	getRatings() {
+		const user = this.props.username;
+		axios.get("http://127.0.0.1:8000/rater/get-ratings/" + user).then((res) =>
+			this.setState(
+				{
+					ratings: res.data,
+				},
+				console.log(res.data)
+			)
+		);
 	}
 
 	modifyRating = () => {

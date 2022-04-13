@@ -21,7 +21,7 @@ class Artists(models.Model):
     class Meta:
         verbose_name_plural = "Artists"
     def __str__(self):
-        return (self.song + " - " + self.artist)
+        return (self.song + ' -- '+ self.artist )
 
 class Emojis(models.Model):
     id = models.AutoField(primary_key=True)
@@ -41,7 +41,16 @@ class Ratings(models.Model):
     class Meta:
         verbose_name_plural = "Ratings"
     def __str__(self):
-        return (self.username.username + " gave " + self.song.song + " a " + str(self.rating))
+        return (self.username.spotifyID + " gave " + self.song.song + " a " + str(self.rating))
+    def for_ratings(self):
+        id_=Artists.objects.get(song=self.song.song).trackId
+        print(id_)
+        url="https://open.spotify.com/embed/track/"+id_+"?utm_source=generator"
+        return dict(
+        song =self.song.song,
+        url=url,
+        rating=self.rating,
+        key=self.id)
 
 
 

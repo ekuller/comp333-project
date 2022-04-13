@@ -41,7 +41,7 @@ export default class YourRatings extends React.Component {
 
 	addRating(song, rating) {
 		axios.post("http://127.0.0.1:8000/rater/rate", {
-			song: song.song,
+			song: song,
 			rating: rating,
 			username: this.props.username,
 		});
@@ -49,7 +49,6 @@ export default class YourRatings extends React.Component {
 
 	handleSubmit = (song, rating) => {
 		this.toggle();
-
 		if (!song.exists) {
 			axios
 				.post("http://127.0.0.1:8000/rater/song", {

@@ -48,7 +48,7 @@ export default class HomePage extends React.Component {
 						)}
 					</TabPanel>
 					<TabPanel>
-						<YourRatings />
+						<YourRatings username={this.props.username} />
 					</TabPanel>
 					<TabPanel>
 						<h2>Any content 3</h2>

@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from .models import SpotifyUsers, Artists, Ratings, Emojis
 from requests import post, get
 from rest_framework.views import APIView
@@ -7,6 +7,7 @@ from .credentials import REDIRECT_URI, CLIENT_SECRET, CLIENT_ID
 from rest_framework.response import Response
 from rest_framework import status
 from .util import *
+from django.core import serializers
 from rest_framework import viewsets
 from .serializers import RateSerializer, SongSerializer
 
@@ -145,9 +146,12 @@ def login_failed(request):
     return render(request, 'musicrater/login_failed.html')
 
 def songExists(song):
-   return bool(Artists.objects.filter(song=song))
-    
-    
+   return Artists.objects.filter(song=song).exists()
+
+def songRated(song, user):
+    # return Ratings.objects.filter(song=song, username=user).exists()
+    return False
+
 class IsAuthenticated(APIView):
     def get(self, request, session_id):
         user = get_user_by_session(session_id)
@@ -157,10 +161,15 @@ class IsAuthenticated(APIView):
             return Response({'status': 'is_not_authenticated'}, status=status.HTTP_200_OK)
 
 # makes api call using the host (sessionId) and returns a reccomended track based on the passed track id
-def getRec(host, track):
+def getRec(host, track, user):
     endpoint="recommendations?limit=1&seed_genres=Pop&seed_tracks="+track
     recResponse=execute_spotify_api_request(host, endpoint)
-    track=recResponse['tracks'][0]
+    i=0
+    while(True):
+        track=recResponse['tracks'][i]
+        if not songRated(track["name"], user):
+            break
+        else: i+=1
     print(recResponse)
     return {'song':track["name"],
                     'key':track["id"],
@@ -172,12 +181,14 @@ def getRec(host, track):
 
 class Recomendation(APIView):
     def get(self, request, sessionId, trackId):
-        rec = getRec(sessionId, trackId)
+        user= get_user_by_session(sessionId)
+        rec = getRec(sessionId, trackId, user)
         print(rec)
         return Response({'newSong':rec}, status=status.HTTP_200_OK)
         
 class TopSongs(APIView):
     def get(self, request, session_id):
+        user= get_user_by_session(session_id)
         endpoint='me/top/tracks'
         response=execute_spotify_api_request(session_id, endpoint)
         tracks=[]
@@ -187,25 +198,36 @@ class TopSongs(APIView):
             numTopSongs=5
         numOther= 5- len(response["items"])
         for track in response["items"][:numTopSongs]:
-            tracks.append({'song':track["name"],
-                        'key':track["id"],
-                            'url':"https://open.spotify.com/embed/track/"+track["id"]+"?utm_source=generator",
-                            'artist': track["artists"][0]["name"],
-                            'call':"Top Played Song",
-                            'exists': songExists(track["name"])}) #associating songs with first listed artist (even if multiple artists)
-            tracks.append(getRec(session_id, track["id"]))
+            if not songRated(track["name"], user):
+                tracks.append({'song':track["name"],
+                            'key':track["id"],
+                                'url':"https://open.spotify.com/embed/track/"+track["id"]+"?utm_source=generator",
+                                'artist': track["artists"][0]["name"],
+                                'call':"Top Played Song",
+                                'exists': songExists(track["name"])}) #associating songs with first listed artist (even if multiple artists)
+            else: tracks.append(getRec(session_id, track["id"], user))
+            tracks.append(getRec(session_id, track["id"], user))
         if numOther>0:
             endpoint="playlists/37i9dQZF1DX0b1hHYQtJjp/tracks?offset=0&limit="+str(numOther*2)
             otherResponse=execute_spotify_api_request(session_id, endpoint)
             other=otherResponse["items"]
             for i in other:
                 track=i["track"]
-                tracks.append({'song':track["name"],
-                                'key':track["id"],
-                                'url':"https://open.spotify.com/embed/track/"+track["id"]+"?utm_source=generator",
-                                'artist': track["artists"][0]["name"],
-                                'call':"Just Good Music",
-                                'exists': songExists(track["name"])}) 
+                if not songRated(track["name"], user):
+                    tracks.append({'song':track["name"],
+                                    'key':track["id"],
+                                    'url':"https://open.spotify.com/embed/track/"+track["id"]+"?utm_source=generator",
+                                    'artist': track["artists"][0]["name"],
+                                    'call':"Just Good Music",
+                                    'exists': songExists(track["name"])}) 
+                else: tracks.append(getRec(session_id, track["id"], user))
                 
                 
         return Response({'songs':tracks}, status=status.HTTP_200_OK)
+
+class UserRatings(APIView):
+    def get(self, request, spotifyID):
+        ratings= Ratings.objects.filter(username=spotifyID)
+        ratings=[r.for_ratings() for r in ratings]
+        print(ratings)
+        return Response(ratings, status=status.HTTP_200_OK)
