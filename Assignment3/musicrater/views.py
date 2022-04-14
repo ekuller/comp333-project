@@ -149,8 +149,6 @@ def songExists(song):
    return Artists.objects.filter(song=song).exists()
 
 def songRated(song, user):
-    print(user, song)
-    print(Ratings.objects.filter(username=user,song=song).exists())
     return Ratings.objects.filter(username=user,song=song).exists()
 
 class IsAuthenticated(APIView):
@@ -172,7 +170,6 @@ def getRec(host, track, user):
             break
         else: i+=1
         if i>=len(recResponse['tracks']): return getRec(host, track["id"], user)
-    print(recResponse)
     return {'song':track["name"],
                     'key':track["id"],
                         'url':"https://open.spotify.com/embed/track/"+track["id"]+"?utm_source=generator",
@@ -184,9 +181,7 @@ def getRec(host, track, user):
 class Recomendation(APIView):
     def get(self, request, sessionId, trackId):
         user=SpotifyUsers.objects.get(session_id=sessionId).spotifyID
-        print(user)
         rec = getRec(sessionId, trackId, user)
-        print(rec)
         return Response({'newSong':rec}, status=status.HTTP_200_OK)
         
 class TopSongs(APIView):
@@ -260,7 +255,8 @@ class RatingsSummary(APIView):
                 r=None
                 id_=None
             trackId=Artists.objects.get(song=song.song).trackId
-            url="https://open.spotify.com/embed/track/"+trackId+"?utm_source=generator"
+            if trackId: url="https://open.spotify.com/embed/track/"+trackId+"?utm_source=generator"
+            else: url=None
             res.append({
                 'url':url,
                 'song': song.song,

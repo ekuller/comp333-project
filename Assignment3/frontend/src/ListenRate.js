@@ -156,15 +156,22 @@ export default class YourRatings extends React.Component {
 					</Badge>
 				)}
 				<Row xs="4">
-					<Col className="w-auto">
-						<iframe
-							src={song.url}
-							width="100%"
-							height="80"
-							frameBorder="0"
-							allowFullScreen=""
-							allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-						></iframe>
+					<Col className="w-50">
+						{song.url ? (
+							<iframe
+								src={song.url}
+								width="100%"
+								height="80"
+								title={song.song}
+								frameBorder="0"
+								allowFullScreen=""
+								allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+							></iframe>
+						) : (
+							<div>
+								"{song.song}" by {song.artist}
+							</div>
+						)}
 					</Col>
 					{this.props.yourRatings ? (
 						<Col className="w-auto">{song.rating}/5</Col>

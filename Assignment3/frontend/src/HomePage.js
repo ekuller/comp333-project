@@ -3,14 +3,16 @@ import "react-tabs/style/react-tabs.css";
 import ListenRate from "./ListenRate";
 import axios from "axios";
 import { ReactSession } from "react-client-session";
-import { Spinner } from "reactstrap";
+import { Spinner, Button } from "reactstrap";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
+import Modal from "./Modal2";
 
 export default class HomePage extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {};
 		this.getTopSongs();
+		this.modal = false;
 	}
 
 	getTopSongs() {
@@ -22,6 +24,41 @@ export default class HomePage extends React.Component {
 					songs: res.data["songs"],
 				})
 			);
+	}
+	toggle = () => {
+		this.setState({ modal: !this.state.modal });
+	};
+
+	addRating(song, rating) {
+		return axios.post("http://127.0.0.1:8000/rater/rate/", {
+			song: song,
+			rating: rating,
+			username: this.props.username,
+		});
+	}
+
+	handleSubmit = (song, rating, artist) => {
+		this.toggle();
+		axios.get("http://127.0.0.1:8000/rater/song").then((res) => {
+			for (let i in res) {
+				if (i.song === song) {
+					this.addRating(song, rating);
+					return;
+				}
+			}
+			axios
+				.post("http://127.0.0.1:8000/rater/song", {
+					song: song,
+					artist: artist,
+				})
+				.then(() => this.addRating(song, rating));
+		});
+	};
+
+	rateOtherSong() {
+		this.setState({
+			modal: !this.state.modal,
+		});
 	}
 
 	render() {
@@ -35,6 +72,9 @@ export default class HomePage extends React.Component {
 					</TabList>
 
 					<TabPanel>
+						<Button onClick={() => this.rateOtherSong()}>
+							Rate Other Song
+						</Button>
 						{this.state.songs ? (
 							<ListenRate
 								songs={this.state.songs}
@@ -58,6 +98,9 @@ export default class HomePage extends React.Component {
 						/>
 					</TabPanel>
 				</Tabs>
+				{this.state.modal ? (
+					<Modal toggle={this.toggle} onSave={this.handleSubmit} />
+				) : null}
 			</div>
 		);
 	}

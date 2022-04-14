@@ -46,7 +46,8 @@ class Ratings(models.Model):
         id_=Artists.objects.get(song=self.song.song).trackId
         artist=Artists.objects.get(song=self.song.song).artist
         print(id_)
-        url="https://open.spotify.com/embed/track/"+id_+"?utm_source=generator"
+        if id_: url="https://open.spotify.com/embed/track/"+id_+"?utm_source=generator"
+        else: url=None
         return dict(
         song =self.song.song,
         url=url,
