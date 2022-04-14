@@ -162,7 +162,7 @@ export default class YourRatings extends React.Component {
 								src={song.url}
 								width="100%"
 								height="80"
-								title={song.song}
+								title={song}
 								frameBorder="0"
 								allowFullScreen=""
 								allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
