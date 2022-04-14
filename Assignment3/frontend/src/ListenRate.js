@@ -189,20 +189,47 @@ export default class YourRatings extends React.Component {
 						</Col>
 					) : null}
 					<Col className="w-auto">
-						{this.props.yourRatings | song.rating ? (
-							<Button onClick={() => this.modifyRating(song)} type="submit">
-								Modify Rating
-							</Button>
-						) : (
-							<Button onClick={() => this.modifyRating(song)} type="submit">
-								Add Rating
-							</Button>
-						)}
+						<Row>
+							{this.props.yourRatings | song.rating ? (
+								<Button
+									style={{
+										margin: "5px",
+									}}
+									onClick={() => this.modifyRating(song)}
+									type="submit"
+								>
+									Modify Rating
+								</Button>
+							) : (
+								<Button onClick={() => this.modifyRating(song)} type="submit">
+									Add Rating
+								</Button>
+							)}
+						</Row>
+						<Row>
+							{this.props.social & !song.url ? (
+								<Button
+									style={{
+										margin: "5px",
+									}}
+									onClick={() => this.modifySong(song)}
+									type="submit"
+								>
+									Edit Song
+								</Button>
+							) : null}
+						</Row>
 					</Col>
 					{this.props.social ? null : (
 						<Col className="w-auto">
 							{this.props.yourRatings ? (
-								<Button onClick={() => this.deleteRating(song)} type="submit">
+								<Button
+									style={{
+										margin: "5px",
+									}}
+									onClick={() => this.deleteRating(song)}
+									type="submit"
+								>
 									Delete Rating
 								</Button>
 							) : (
