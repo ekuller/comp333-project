@@ -148,7 +148,12 @@ export default class YourRatings extends React.Component {
 	renderItems = () => {
 		const songs = this.state.songs;
 		return songs?.map((song) => (
-			<div>
+			<div
+				style={{
+					border: "2px solid black",
+					padding: "3px",
+				}}
+			>
 				{this.props.yourRatings ? null : (
 					<Badge color="primary" pill>
 						{song.call}
