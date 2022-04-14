@@ -255,17 +255,19 @@ class RatingsSummary(APIView):
         for song in songs:
             try:
                 r=Ratings.objects.get(song=song.song, username=spotifyID).rating
+                id_=Ratings.objects.get(song=song.song, username=spotifyID).id
             except:
                 r=None
-            id_=Artists.objects.get(song=song.song).trackId
-            url="https://open.spotify.com/embed/track/"+id_+"?utm_source=generator"
+                id_=None
+            trackId=Artists.objects.get(song=song.song).trackId
+            url="https://open.spotify.com/embed/track/"+trackId+"?utm_source=generator"
             res.append({
                 'url':url,
                 'song': song.song,
                 'artist':song.artist,
                 'rating': r,
-                'average': self.getAvgRating(song.song)
-                
+                'average': self.getAvgRating(song.song),
+                'key':id_
             })
         return Response(res, status=status.HTTP_200_OK)
 

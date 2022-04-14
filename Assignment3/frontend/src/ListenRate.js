@@ -30,7 +30,7 @@ export default class YourRatings extends React.Component {
 	};
 
 	addRating(song, rating) {
-		axios.post("http://127.0.0.1:8000/rater/rate/", {
+		return axios.post("http://127.0.0.1:8000/rater/rate/", {
 			song: song,
 			rating: rating,
 			username: this.props.username,
@@ -39,12 +39,19 @@ export default class YourRatings extends React.Component {
 
 	handleSubmit = (song, rating) => {
 		this.toggle();
-		if (this.props.yourRatings | this.props.social) {
-			axios.put("http://127.0.0.1:8000/rater/rate/" + song.key + "/", {
-				rating: rating,
-				song: song.song,
-				username: this.props.username,
-			});
+		if (this.props.yourRatings | song.rating) {
+			axios
+				.put("http://127.0.0.1:8000/rater/rate/" + song.key + "/", {
+					rating: rating,
+					song: song.song,
+					username: this.props.username,
+				})
+				.then(() => {})
+				.then(() => {
+					if (this.props.social) {
+						this.getSumRatings();
+					}
+				});
 			const currSongs = this.state.songs;
 			const index = currSongs.findIndex((element) => {
 				if (element.key === song.key) {
@@ -56,16 +63,21 @@ export default class YourRatings extends React.Component {
 				songs: currSongs,
 			});
 		} else {
-			if (!song.exists) {
+			if (!this.props.social & !song.exists) {
 				axios
 					.post("http://127.0.0.1:8000/rater/song", {
 						song: song.song,
 						artist: song.artist,
 						trackId: song.key,
 					})
-					.then(() => this.addRating(song.song, rating));
+					.then(() => this.addRating(song.song, rating))
+					.then(() => {
+						if (this.props.social) {
+							this.getSumRatings();
+						}
+					});
 			} else this.addRating(song.song, rating);
-			this.swapSong(song);
+			if (!this.props.yourRatings & !this.props.social) this.swapSong(song);
 		}
 	};
 
