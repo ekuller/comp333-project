@@ -3,6 +3,7 @@ import { ReactSession } from "react-client-session";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Modal from "./Modal";
 import axios from "axios";
+import Modal2 from "./Modal2";
 
 import { Container, Row, Col, Button, Badge } from "reactstrap";
 
@@ -13,6 +14,7 @@ export default class YourRatings extends React.Component {
 			sessionID: ReactSession.get("sessionID"),
 			songs: this.props.songs,
 			modifyModal: false,
+			editModal: false,
 			activeSong: {
 				song: "",
 				key: "",
@@ -29,6 +31,10 @@ export default class YourRatings extends React.Component {
 		this.setState({ modifyModal: !this.state.modifyModal });
 	};
 
+	toggle2 = () => {
+		this.setState({ editModal: !this.state.editModal });
+	};
+
 	addRating(song, rating) {
 		return axios.post("http://127.0.0.1:8000/rater/rate/", {
 			song: song,
@@ -36,6 +42,29 @@ export default class YourRatings extends React.Component {
 			username: this.props.username,
 		});
 	}
+	handleSubmit2 = (song, artist) => {
+		this.toggle2();
+		const key = this.state.activeSong.key;
+		const currSongs = this.state.songs;
+		const index = currSongs.findIndex((element) => {
+			if (element.key === key) {
+				return true;
+			}
+		});
+		currSongs[index].song = song ? song : currSongs[index].song;
+		currSongs[index].artist = artist ? artist : currSongs[index].artist;
+		this.setState({
+			songs: currSongs,
+		});
+		axios.put(
+			"http://127.0.0.1:8000/rater/edit-song/" +
+				key +
+				"/" +
+				currSongs[index].artist +
+				"/" +
+				currSongs[index].song
+		);
+	};
 
 	handleSubmit = (song, rating) => {
 		this.toggle();
@@ -113,6 +142,20 @@ export default class YourRatings extends React.Component {
 			modifyModal: !this.state.modifyModal,
 		});
 	};
+
+	editSong = (song) => {
+		this.setState({
+			activeSong: song,
+			editModal: !this.state.modifyModal,
+		});
+	};
+
+	modifyRating = (song) => {
+		this.setState({
+			activeSong: song,
+			modifyModal: !this.state.modifyModal,
+		});
+	};
 	getRatings() {
 		const user = this.props.username;
 		axios.get("http://127.0.0.1:8000/rater/get-ratings/" + user).then((res) =>
@@ -141,7 +184,7 @@ export default class YourRatings extends React.Component {
 			.delete("http://127.0.0.1:8000/rater/rate/" + song.key + "/")
 			.then(() => {
 				this.getRatings();
-				axios.get("http://127.0.0.1:8000/rater/delete-song/" + song.track);
+				axios.delete("http://127.0.0.1:8000/rater/delete-song/" + song.song);
 			});
 	}
 
@@ -189,54 +232,54 @@ export default class YourRatings extends React.Component {
 						</Col>
 					) : null}
 					<Col className="w-auto">
-						<Row>
-							{this.props.yourRatings | song.rating ? (
-								<Button
-									style={{
-										margin: "5px",
-									}}
-									onClick={() => this.modifyRating(song)}
-									type="submit"
-								>
-									Modify Rating
-								</Button>
-							) : (
-								<Button onClick={() => this.modifyRating(song)} type="submit">
-									Add Rating
-								</Button>
-							)}
-						</Row>
-						<Row>
-							{this.props.social & !song.url ? (
-								<Button
-									style={{
-										margin: "5px",
-									}}
-									onClick={() => this.modifySong(song)}
-									type="submit"
-								>
-									Edit Song
-								</Button>
-							) : null}
-						</Row>
+						{this.props.yourRatings | song.rating ? (
+							<Button
+								style={{
+									margin: "5px",
+								}}
+								onClick={() => this.modifyRating(song)}
+								type="submit"
+							>
+								Modify Rating
+							</Button>
+						) : (
+							<Button onClick={() => this.modifyRating(song)} type="submit">
+								Add Rating
+							</Button>
+						)}
 					</Col>
 					{this.props.social ? null : (
 						<Col className="w-auto">
 							{this.props.yourRatings ? (
-								<Button
-									style={{
-										margin: "5px",
-									}}
-									onClick={() => this.deleteRating(song)}
-									type="submit"
-								>
-									Delete Rating
-								</Button>
+								<Row>
+									<Button
+										style={{
+											margin: "5px",
+										}}
+										onClick={() => this.deleteRating(song)}
+										type="submit"
+									>
+										Delete Rating
+									</Button>
+								</Row>
 							) : (
 								<Button onClick={() => this.notInterested(song)} type="submit">
 									Not Interested in Rating
 								</Button>
 							)}
+							{this.props.yourRatings & !song.url ? (
+								<Row>
+									<Button
+										style={{
+											margin: "5px",
+										}}
+										onClick={() => this.editSong(song)}
+										type="submit"
+									>
+										Edit Song
+									</Button>
+								</Row>
+							) : null}
 						</Col>
 					)}
 				</Row>
@@ -250,11 +293,20 @@ export default class YourRatings extends React.Component {
 				<div>
 					<Container>{this.renderItems()} </Container>
 				</div>
+
 				{this.state.modifyModal ? (
 					<Modal
 						song={this.state.activeSong}
 						toggle={this.toggle}
 						onSave={this.handleSubmit}
+					/>
+				) : null}
+				{this.state.editModal ? (
+					<Modal2
+						toggle={this.toggle2}
+						onSave={this.handleSubmit2}
+						song={this.state.activeSong}
+						username={this.props.username}
 					/>
 				) : null}
 			</div>

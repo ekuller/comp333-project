@@ -26,5 +26,6 @@ urlpatterns = [
     path('get-new-rec/<str:sessionId>/<str:trackId>', views.Recomendation.as_view()),
     path('rate/',include(rRouter.urls) ),
     path('song',include(sRouter.urls) ),
-    path('delete-song/<str:trackId>', views.DeleteSong.as_view())
+    path('delete-song/<str:song>', views.DeleteSong.as_view()),
+    path('edit-song/<str:ratingKey>/<str:artist>/<str:song>', views.EditSong.as_view())
 ]

@@ -268,13 +268,26 @@ class RatingsSummary(APIView):
         return Response(res, status=status.HTTP_200_OK)
 
 
+
+def deleteSongIfEmpty(song):
+    inst = Artists.objects.get(song=song)
+    ratings=Ratings.objects.filter(song=inst.song)
+    count=ratings.count()
+    if count==0:
+        inst.delete() 
+    return Response({'status': 'deleted'}, status=status.HTTP_200_OK)
+    
 # delete song w given trackID if no ratings for that song exist
 class DeleteSong(APIView):
-    def get(self, request, trackId):
-        inst = Artists.objects.get(trackId=trackId)
-        ratings=Ratings.objects.filter(song=inst.song)
-        count=ratings.count()
-        if count==0:
-            inst.delete() 
-        return Response({'status': 'deleted'}, status=status.HTTP_200_OK)
+    def delete(self, request, song):
+        return deleteSongIfEmpty(song)
+
+# delete song w given trackID if no ratings for that song exist
+class EditSong(APIView):
+    def put(self, request, ratingKey, artist, song):
+        ratings=Ratings.objects.get(id=ratingKey)
+        initSong=ratings.song.song
+        ratings.song=Artists.objects.get_or_create(song=song, artist=artist)[0]
+        ratings.save()
+        return deleteSongIfEmpty(initSong)
     

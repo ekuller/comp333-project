@@ -12,11 +12,13 @@ import {
 	Row,
 	Col,
 } from "reactstrap";
+import axios from "axios";
 
 export default class CustomModal extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {};
+		const { toggle, onSave, song } = this.props;
 	}
 
 	handleChange = (e) => {
@@ -27,65 +29,82 @@ export default class CustomModal extends Component {
 	};
 
 	render() {
-		const { toggle, onSave } = this.props;
+		const { toggle, onSave, song } = this.props;
 
 		return (
 			<Modal isOpen={true} toggle={toggle}>
-				<ModalHeader toggle={toggle}>Rate Song</ModalHeader>
+				{song ? (
+					<ModalHeader toggle={toggle}>Edit Song</ModalHeader>
+				) : (
+					<ModalHeader toggle={toggle}>Rate Song</ModalHeader>
+				)}
 				<ModalBody>
 					<Form>
 						<FormGroup>
+							<Label>song </Label>
 							<Input
 								className="w-auto"
 								type="text"
 								id="song"
 								name="song"
-								placeholder="song"
+								placeholder={song ? song.song : "song"}
 								onChange={this.handleChange}
 							/>
 						</FormGroup>
 						<FormGroup>
+							<Label>artist </Label>
 							<Input
 								className="w-auto"
 								type="text"
 								id="artist"
-								placeholder="artist"
+								placeholder={song ? song.artist : "artist"}
 								name="artist"
 								onChange={this.handleChange}
 							/>
 						</FormGroup>
-						<FormGroup row>
-							<Input
-								className="w-auto"
-								type="number"
-								id="rating"
-								name="rating"
-								onChange={this.handleChange}
-								min="1"
-								max="5"
-							/>
-							<Col> /5</Col>
-							<Row>
-								<p>Please enter an interger between 1 and 5 (inclusive).</p>
-							</Row>
-						</FormGroup>
+						{song ? null : (
+							<FormGroup row>
+								<Input
+									className="w-auto"
+									type="number"
+									id="rating"
+									name="rating"
+									onChange={this.handleChange}
+									min="1"
+									max="5"
+								/>
+								<Col> /5</Col>
+								<Row>
+									<p>Please enter an interger between 1 and 5 (inclusive).</p>
+								</Row>
+							</FormGroup>
+						)}
 					</Form>
 				</ModalBody>
 				<ModalFooter>
-					<Button
-						disabled={
-							[1, 2, 3, 4, 5].includes(parseFloat(this.state.rating)) &&
-							this.state.song &&
-							this.state.artist
-								? false
-								: true
-						}
-						onClick={() =>
-							onSave(this.state.song, this.state.rating, this.state.artist)
-						}
-					>
-						Rate
-					</Button>
+					{!song ? (
+						<Button
+							disabled={
+								[1, 2, 3, 4, 5].includes(parseFloat(this.state.rating)) &&
+								this.state.song &&
+								this.state.artist
+									? false
+									: true
+							}
+							onClick={() =>
+								onSave(this.state.song, this.state.rating, this.state.artist)
+							}
+						>
+							Rate
+						</Button>
+					) : (
+						<Button
+							disabled={this.state.song || this.state.artist ? false : true}
+							onClick={() => onSave(this.state.song, this.state.artist)}
+						>
+							Edit
+						</Button>
+					)}
 				</ModalFooter>
 			</Modal>
 		);
