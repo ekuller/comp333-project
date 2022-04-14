@@ -58,7 +58,6 @@ export default class App extends Component {
 	render() {
 		return (
 			<div>
-				<p>Session ID is: {this.state.sessionID}</p>
 				<LoginPage
 					loginStatus={this.state.authenticated}
 					handleLogout={this.handleLogout}

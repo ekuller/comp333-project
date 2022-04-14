@@ -272,8 +272,8 @@ class RatingsSummary(APIView):
 
 # delete song w given trackID if no ratings for that song exist
 class DeleteSong(APIView):
-    def get(self, request, trackID):
-        inst = Artists.object.get(trackId=trackID)
+    def get(self, request, trackId):
+        inst = Artists.objects.get(trackId=trackId)
         ratings=Ratings.objects.filter(song=inst.song)
         count=ratings.count()
         if count==0:
