@@ -282,7 +282,7 @@ class DeleteSong(APIView):
     def delete(self, request, song):
         return deleteSongIfEmpty(song)
 
-# delete song w given trackID if no ratings for that song exist
+# modify the song of a rating
 class EditSong(APIView):
     def put(self, request, ratingKey, artist, song):
         ratings=Ratings.objects.get(id=ratingKey)
