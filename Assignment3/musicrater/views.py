@@ -231,6 +231,52 @@ class TopSongs(APIView):
 class UserRatings(APIView):
     def get(self, request, spotifyID):
         ratings= Ratings.objects.filter(username=spotifyID)
-        ratings=[r.for_ratings() for r in ratings]
+        res=[]
+        for r in ratings:
+            rating=r.for_ratings() 
+            rating["track"]=Artists.objects.get(song=rating["song"]).trackId
+            res.append(rating)
         print(ratings)
-        return Response(ratings, status=status.HTTP_200_OK)
+        return Response(res, status=status.HTTP_200_OK)
+
+class RatingsSummary(APIView):
+    def getAvgRating(self,song):
+        avg=0
+        ratings=Ratings.objects.filter(song=song)
+        count=ratings.count()
+        if not count: return None
+        for r in ratings:
+            avg+=(1/count)* r.rating
+        return avg
+        
+    def get(self, request, spotifyID):
+        res=[]
+        songs=Artists.objects.all()
+        for song in songs:
+            try:
+                r=Ratings.objects.get(song=song.song, username=spotifyID).rating
+            except:
+                r=None
+            id_=Artists.objects.get(song=song.song).trackId
+            url="https://open.spotify.com/embed/track/"+id_+"?utm_source=generator"
+            res.append({
+                'url':url,
+                'song': song.song,
+                'artist':song.artist,
+                'rating': r,
+                'average': self.getAvgRating(song.song)
+                
+            })
+        return Response(res, status=status.HTTP_200_OK)
+
+
+# delete song w given trackID if no ratings for that song exist
+class DeleteSong(APIView):
+    def get(self, request, trackID):
+        inst = Artists.object.get(trackId=trackID)
+        ratings=Ratings.objects.filter(song=inst.song)
+        count=ratings.count()
+        if count==0:
+            inst.delete() 
+        return Response({'status': 'deleted'}, status=status.HTTP_200_OK)
+    

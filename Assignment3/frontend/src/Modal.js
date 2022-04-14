@@ -45,6 +45,7 @@ export default class CustomModal extends Component {
 									onChange={this.handleChange}
 									min="0"
 									max="5"
+									placeholder={this.props.song.rating}
 								/>
 								<Col> /5</Col>
 							</Row>

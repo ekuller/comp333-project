@@ -44,11 +44,13 @@ class Ratings(models.Model):
         return (self.username.spotifyID + " gave " + self.song.song + " a " + str(self.rating))
     def for_ratings(self):
         id_=Artists.objects.get(song=self.song.song).trackId
+        artist=Artists.objects.get(song=self.song.song).artist
         print(id_)
         url="https://open.spotify.com/embed/track/"+id_+"?utm_source=generator"
         return dict(
         song =self.song.song,
         url=url,
+        artist=artist,
         rating=self.rating,
         key=self.id)
 

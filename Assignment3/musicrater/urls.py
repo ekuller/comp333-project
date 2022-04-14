@@ -22,7 +22,9 @@ urlpatterns = [
     path('is-authenticated/<str:session_id>', views.IsAuthenticated.as_view()),
     path('get-top-songs/<str:session_id>', views.TopSongs.as_view()),
     path('get-ratings/<str:spotifyID>', views.UserRatings.as_view()),
+    path('get-ratings-summary/<str:spotifyID>', views.RatingsSummary.as_view()),
     path('get-new-rec/<str:sessionId>/<str:trackId>', views.Recomendation.as_view()),
     path('rate/',include(rRouter.urls) ),
-    path('song',include(sRouter.urls) )
+    path('song',include(sRouter.urls) ),
+    path('delete-song/<str:trackId>', views.DeleteSong.as_view())
 ]

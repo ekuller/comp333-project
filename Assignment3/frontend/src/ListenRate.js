@@ -22,8 +22,8 @@ export default class YourRatings extends React.Component {
 				call: "",
 			},
 		};
-		console.log(this.state.songs);
 		if (this.props.yourRatings) this.getRatings();
+		if (this.props.social) this.getSumRatings();
 	}
 
 	toggle = () => {
@@ -40,7 +40,7 @@ export default class YourRatings extends React.Component {
 
 	handleSubmit = (song, rating) => {
 		this.toggle();
-		if (this.props.yourRatings) {
+		if (this.props.yourRatings | this.props.social) {
 			axios.put("http://127.0.0.1:8000/rater/rate/" + song.key + "/", {
 				rating: rating,
 				song: song.song,
@@ -83,9 +83,9 @@ export default class YourRatings extends React.Component {
 				"http://127.0.0.1:8000/rater/get-new-rec/" + sessionId + "/" + song.key
 			)
 			.then((res) => {
-				currSongs.splice(index, 1);
-				currSongs.push(res.data["newSong"]);
-				// currSongs[index] = res.data["newSong"];
+				// currSongs.splice(index, 1);
+				// currSongs.push(res.data["newSong"]);
+				currSongs[index] = res.data["newSong"];
 				console.log(res.data["newSong"]);
 				this.setState({
 					songs: currSongs,
@@ -115,10 +115,24 @@ export default class YourRatings extends React.Component {
 		);
 	}
 
-	deleteRating(id) {
+	getSumRatings() {
+		const user = this.props.username;
 		axios
-			.delete("http://127.0.0.1:8000/rater/rate/" + id + "/")
-			.then(() => this.getRatings());
+			.get("http://127.0.0.1:8000/rater/get-ratings-summary/" + user)
+			.then((res) =>
+				this.setState({
+					songs: res.data,
+				})
+			);
+	}
+
+	deleteRating(song) {
+		axios
+			.delete("http://127.0.0.1:8000/rater/rate/" + song.key + "/")
+			.then(() => {
+				this.getRatings();
+				axios.get("http://127.0.0.1:8000/rater/delete-song/" + song.track);
+			});
 	}
 
 	renderItems = () => {
@@ -144,8 +158,16 @@ export default class YourRatings extends React.Component {
 					{this.props.yourRatings ? (
 						<Col className="w-auto">{song.rating}/5</Col>
 					) : null}
+					{this.props.social ? (
+						<Col className="w-auto">
+							<Row>Avg Rating: {song.average}/5 </Row>
+							{song.rating ? (
+								<Row className="w-auto">Your Rating: {song.rating}/5</Row>
+							) : null}
+						</Col>
+					) : null}
 					<Col className="w-auto">
-						{this.props.yourRatings ? (
+						{this.props.yourRatings | song.rating ? (
 							<Button onClick={() => this.modifyRating(song)} type="submit">
 								Modify Rating
 							</Button>
@@ -155,17 +177,19 @@ export default class YourRatings extends React.Component {
 							</Button>
 						)}
 					</Col>
-					<Col className="w-auto">
-						{this.props.yourRatings ? (
-							<Button onClick={() => this.deleteRating(song.key)} type="submit">
-								Delete Rating
-							</Button>
-						) : (
-							<Button onClick={() => this.notInterested(song)} type="submit">
-								Not Interested in Rating
-							</Button>
-						)}
-					</Col>
+					{this.props.social ? null : (
+						<Col className="w-auto">
+							{this.props.yourRatings ? (
+								<Button onClick={() => this.deleteRating(song)} type="submit">
+									Delete Rating
+								</Button>
+							) : (
+								<Button onClick={() => this.notInterested(song)} type="submit">
+									Not Interested in Rating
+								</Button>
+							)}
+						</Col>
+					)}
 				</Row>
 			</div>
 		));
