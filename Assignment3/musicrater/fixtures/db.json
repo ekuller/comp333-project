@@ -1,0 +1,1060 @@
+[
+  {
+    "model": "auth.permission",
+    "pk": 1,
+    "fields": {
+      "name": "Can add log entry",
+      "content_type": 1,
+      "codename": "add_logentry"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 2,
+    "fields": {
+      "name": "Can change log entry",
+      "content_type": 1,
+      "codename": "change_logentry"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 3,
+    "fields": {
+      "name": "Can delete log entry",
+      "content_type": 1,
+      "codename": "delete_logentry"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 4,
+    "fields": {
+      "name": "Can view log entry",
+      "content_type": 1,
+      "codename": "view_logentry"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 5,
+    "fields": {
+      "name": "Can add permission",
+      "content_type": 2,
+      "codename": "add_permission"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 6,
+    "fields": {
+      "name": "Can change permission",
+      "content_type": 2,
+      "codename": "change_permission"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 7,
+    "fields": {
+      "name": "Can delete permission",
+      "content_type": 2,
+      "codename": "delete_permission"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 8,
+    "fields": {
+      "name": "Can view permission",
+      "content_type": 2,
+      "codename": "view_permission"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 9,
+    "fields": {
+      "name": "Can add group",
+      "content_type": 3,
+      "codename": "add_group"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 10,
+    "fields": {
+      "name": "Can change group",
+      "content_type": 3,
+      "codename": "change_group"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 11,
+    "fields": {
+      "name": "Can delete group",
+      "content_type": 3,
+      "codename": "delete_group"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 12,
+    "fields": {
+      "name": "Can view group",
+      "content_type": 3,
+      "codename": "view_group"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 13,
+    "fields": {
+      "name": "Can add user",
+      "content_type": 4,
+      "codename": "add_user"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 14,
+    "fields": {
+      "name": "Can change user",
+      "content_type": 4,
+      "codename": "change_user"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 15,
+    "fields": {
+      "name": "Can delete user",
+      "content_type": 4,
+      "codename": "delete_user"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 16,
+    "fields": {
+      "name": "Can view user",
+      "content_type": 4,
+      "codename": "view_user"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 17,
+    "fields": {
+      "name": "Can add content type",
+      "content_type": 5,
+      "codename": "add_contenttype"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 18,
+    "fields": {
+      "name": "Can change content type",
+      "content_type": 5,
+      "codename": "change_contenttype"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 19,
+    "fields": {
+      "name": "Can delete content type",
+      "content_type": 5,
+      "codename": "delete_contenttype"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 20,
+    "fields": {
+      "name": "Can view content type",
+      "content_type": 5,
+      "codename": "view_contenttype"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 21,
+    "fields": {
+      "name": "Can add session",
+      "content_type": 6,
+      "codename": "add_session"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 22,
+    "fields": {
+      "name": "Can change session",
+      "content_type": 6,
+      "codename": "change_session"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 23,
+    "fields": {
+      "name": "Can delete session",
+      "content_type": 6,
+      "codename": "delete_session"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 24,
+    "fields": {
+      "name": "Can view session",
+      "content_type": 6,
+      "codename": "view_session"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 25,
+    "fields": {
+      "name": "Can add artists",
+      "content_type": 7,
+      "codename": "add_artists"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 26,
+    "fields": {
+      "name": "Can change artists",
+      "content_type": 7,
+      "codename": "change_artists"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 27,
+    "fields": {
+      "name": "Can delete artists",
+      "content_type": 7,
+      "codename": "delete_artists"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 28,
+    "fields": {
+      "name": "Can view artists",
+      "content_type": 7,
+      "codename": "view_artists"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 29,
+    "fields": {
+      "name": "Can add users",
+      "content_type": 8,
+      "codename": "add_users"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 30,
+    "fields": {
+      "name": "Can change users",
+      "content_type": 8,
+      "codename": "change_users"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 31,
+    "fields": {
+      "name": "Can delete users",
+      "content_type": 8,
+      "codename": "delete_users"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 32,
+    "fields": {
+      "name": "Can view users",
+      "content_type": 8,
+      "codename": "view_users"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 33,
+    "fields": {
+      "name": "Can add ratings",
+      "content_type": 9,
+      "codename": "add_ratings"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 34,
+    "fields": {
+      "name": "Can change ratings",
+      "content_type": 9,
+      "codename": "change_ratings"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 35,
+    "fields": {
+      "name": "Can delete ratings",
+      "content_type": 9,
+      "codename": "delete_ratings"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 36,
+    "fields": {
+      "name": "Can view ratings",
+      "content_type": 9,
+      "codename": "view_ratings"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 37,
+    "fields": {
+      "name": "Can add emojis",
+      "content_type": 10,
+      "codename": "add_emojis"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 38,
+    "fields": {
+      "name": "Can change emojis",
+      "content_type": 10,
+      "codename": "change_emojis"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 39,
+    "fields": {
+      "name": "Can delete emojis",
+      "content_type": 10,
+      "codename": "delete_emojis"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 40,
+    "fields": {
+      "name": "Can view emojis",
+      "content_type": 10,
+      "codename": "view_emojis"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 41,
+    "fields": {
+      "name": "Can add spotify token",
+      "content_type": 11,
+      "codename": "add_spotifytoken"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 42,
+    "fields": {
+      "name": "Can change spotify token",
+      "content_type": 11,
+      "codename": "change_spotifytoken"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 43,
+    "fields": {
+      "name": "Can delete spotify token",
+      "content_type": 11,
+      "codename": "delete_spotifytoken"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 44,
+    "fields": {
+      "name": "Can view spotify token",
+      "content_type": 11,
+      "codename": "view_spotifytoken"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 45,
+    "fields": {
+      "name": "Can add spotify users",
+      "content_type": 12,
+      "codename": "add_spotifyusers"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 46,
+    "fields": {
+      "name": "Can change spotify users",
+      "content_type": 12,
+      "codename": "change_spotifyusers"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 47,
+    "fields": {
+      "name": "Can delete spotify users",
+      "content_type": 12,
+      "codename": "delete_spotifyusers"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 48,
+    "fields": {
+      "name": "Can view spotify users",
+      "content_type": 12,
+      "codename": "view_spotifyusers"
+    }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 1,
+    "fields": { "app_label": "admin", "model": "logentry" }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 2,
+    "fields": { "app_label": "auth", "model": "permission" }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 3,
+    "fields": { "app_label": "auth", "model": "group" }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 4,
+    "fields": { "app_label": "auth", "model": "user" }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 5,
+    "fields": { "app_label": "contenttypes", "model": "contenttype" }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 6,
+    "fields": { "app_label": "sessions", "model": "session" }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 7,
+    "fields": { "app_label": "musicrater", "model": "artists" }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 8,
+    "fields": { "app_label": "musicrater", "model": "users" }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 9,
+    "fields": { "app_label": "musicrater", "model": "ratings" }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 10,
+    "fields": { "app_label": "musicrater", "model": "emojis" }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 11,
+    "fields": { "app_label": "musicrater", "model": "spotifytoken" }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 12,
+    "fields": { "app_label": "musicrater", "model": "spotifyusers" }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "1udeujnifhob4jidn63qbcu3bghjb0px",
+    "fields": {
+      "session_data": "e30:1ncffR:iqacF0GFL7ZFL9aWRLSGbYWRw5cKqyP1SLzN5Y-28P0",
+      "expire_date": "2022-04-22T03:52:13.697Z"
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "2herc4b5xlc05kxd0kinzzx4w9f78wuz",
+    "fields": {
+      "session_data": "e30:1ndGFZ:4ztP0hIG2h_DcZjPCqQNjP6T_W2-rXPT1UwDlRb0wzA",
+      "expire_date": "2022-04-23T18:55:57.428Z"
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "2nlrryj5nwjq48ie9ljemlwh0soccdwq",
+    "fields": {
+      "session_data": "e30:1ndGDy:2IdnaFHF3G-BbzdTSXV3krwY40yDoM9SCNS9fZeRavs",
+      "expire_date": "2022-04-23T18:54:18.090Z"
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "37t6w2rhgoq9b9zk4rgphf2ho6jkstmz",
+    "fields": {
+      "session_data": "e30:1ndGUU:sIGU3LXeWz33VoRUmclWOjs6BmAl311-DI1db-aX7wk",
+      "expire_date": "2022-04-23T19:11:22.516Z"
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "3yfqcm64708jfta07e4omuca838pvtl9",
+    "fields": {
+      "session_data": "e30:1ndGJH:LONqufBmsw_kzsjH-htnE3-Z3rI9bJjdSa6iUVjmUV8",
+      "expire_date": "2022-04-23T18:59:47.394Z"
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "44c67jxtptfosu90xpv1bx19ogid4732",
+    "fields": {
+      "session_data": "e30:1ndElK:vOJ-EahkRahEszBSm_SNPxRyMBubCfAebUE07IAUEt4",
+      "expire_date": "2022-04-23T17:20:38.320Z"
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "48u7crzga3jw3qozhrxmodv2vrr2xry7",
+    "fields": {
+      "session_data": "e30:1ndGaV:_WSaQfn3BrgzbZcFctRdoGdMp4rHIk6RrcroCbFYvL8",
+      "expire_date": "2022-04-23T19:17:35.647Z"
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "4i7w6ekw1dc2uuuriob79smxiugezl1z",
+    "fields": {
+      "session_data": "e30:1ndGZi:eif_d7WfLEuz0ZpsXpyCjp_J2QCD_6U3WO1pa3MkS-c",
+      "expire_date": "2022-04-23T19:16:46.401Z"
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "5gbe3w4buxdh72q1yo80y5jterx2m3gk",
+    "fields": {
+      "session_data": "e30:1ndGHE:v-a38fHBO8klA9t1Yw-YGAMUF2vN3Yszfc_qoflzqz4",
+      "expire_date": "2022-04-23T18:57:40.248Z"
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "6sgl3x7ijoopmgbckii2wvr0zcyzrxiy",
+    "fields": {
+      "session_data": "e30:1ndEjF:jpFpu0l9ievhfVfPHsDw7Y7C2pVHvLscMUF-UHW4lgo",
+      "expire_date": "2022-04-23T17:18:29.780Z"
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "780jrhjjqzdk47uq95tmffiv1pru73ju",
+    "fields": {
+      "session_data": "e30:1ndG1l:-1cqVUe0L-lYaSX-blWxplGtEO1L3vZ9gG0a4hntiZk",
+      "expire_date": "2022-04-23T18:41:41.563Z"
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "86d33ha22gsbxdthbi9p8w1g2c4nx42d",
+    "fields": {
+      "session_data": "e30:1ndGCC:7W9JF91qS5YbmkijREMmKJDYu70zmuCDS4XY58uio4s",
+      "expire_date": "2022-04-23T18:52:28.466Z"
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "8k2z4rkxxivvb80x5uo6btzwt5086ixf",
+    "fields": {
+      "session_data": "e30:1ndG7W:-uOaQMaGVORG0cqxYTJjBpHhuEUmAZaliJzcLLoh_1s",
+      "expire_date": "2022-04-23T18:47:38.873Z"
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "8y35gouhb10s5y8t9g66l4p1cbfgojw7",
+    "fields": {
+      "session_data": "e30:1ndGW3:uqopTDAtZYUQBYf6OwsgE5M8dsVUokylG78yymctAtI",
+      "expire_date": "2022-04-23T19:12:59.780Z"
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "9770wiecneozwvtqd959qqrfbhdqmri2",
+    "fields": {
+      "session_data": "e30:1ndGaV:_WSaQfn3BrgzbZcFctRdoGdMp4rHIk6RrcroCbFYvL8",
+      "expire_date": "2022-04-23T19:17:35.636Z"
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "9roif598qzqryrhuczm9yoyhal6dvgn4",
+    "fields": {
+      "session_data": "e30:1ndGFW:2ZtTH28pwpUevzEP8GzehSLDdHBL4CcC8kmLi_4L5X4",
+      "expire_date": "2022-04-23T18:55:54.180Z"
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "cn8p18rsaz566jpmm2bkkn96m78z4jo5",
+    "fields": {
+      "session_data": "e30:1ndGbb:0oaBrEvq1uJn4iOHQS6twT0LSh_F1f7qTq_E8LRgoRA",
+      "expire_date": "2022-04-23T19:18:43.629Z"
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "cq5rppu2f67fnp0reapotvg77gho2il2",
+    "fields": {
+      "session_data": "e30:1ndGFy:Q9kr0M-u1DEW2DPc2vt7Rk2GSUFQNneIpwUI8QuCjVc",
+      "expire_date": "2022-04-23T18:56:22.574Z"
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "cr44qwssrnn7as5nwzoshb9fltj3ft9w",
+    "fields": {
+      "session_data": "e30:1ndGEE:C-gfd-6uBd2CKFX8osFo8xhQgM-Qpo0H3TfD2GaRaxA",
+      "expire_date": "2022-04-23T18:54:34.015Z"
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "edagfnjearknhneozit0smi3fgggvjc4",
+    "fields": {
+      "session_data": "e30:1ndGJH:LONqufBmsw_kzsjH-htnE3-Z3rI9bJjdSa6iUVjmUV8",
+      "expire_date": "2022-04-23T18:59:47.403Z"
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "gcbjf9f3law3ebf3kztfh2hditdzifnm",
+    "fields": {
+      "session_data": "e30:1ndFtz:S4HknWHDLoAf7fM5Tc0rOHvM8VLZHcSSydvKkOSugYo",
+      "expire_date": "2022-04-23T18:33:39.098Z"
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "hc25pj5uzgvo4gpiq0p6b00d1issh7ko",
+    "fields": {
+      "session_data": "e30:1ndGDy:2IdnaFHF3G-BbzdTSXV3krwY40yDoM9SCNS9fZeRavs",
+      "expire_date": "2022-04-23T18:54:18.148Z"
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "itc9fxh0vippvfn6orjkhvgmk5ml8lv0",
+    "fields": {
+      "session_data": "e30:1ndGED:pS2L1ll61YffOTSTWxzV1Oy-_V0Sfztqabz_va3plDU",
+      "expire_date": "2022-04-23T18:54:33.670Z"
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "jpjyi0huwru5hxdb4ky1uzpdlxyaz00x",
+    "fields": {
+      "session_data": "e30:1ndGG3:H6oup8AVhlCGCA1NmV5iWRs05V0CpOKGppXZsJc3v_w",
+      "expire_date": "2022-04-23T18:56:27.392Z"
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "jxehp3y42b4za2f1l891nb2lcmvm038l",
+    "fields": {
+      "session_data": "e30:1naRt1:K5nacF92buoEEzSpbjrDQpbLqOZjjLpj7tE_bMcArik",
+      "expire_date": "2022-04-16T00:45:03.390Z"
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "lcjtxwztxtgng3sa5owrmkehjl1tjioc",
+    "fields": {
+      "session_data": "e30:1ndGFT:r1kXYzf9PJcZk-6PsjlIIwskNMEMJ3xwvbNqRqBjjqg",
+      "expire_date": "2022-04-23T18:55:51.689Z"
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "m70zbhe9hxwvt85fkt87fgar7vbz0n5f",
+    "fields": {
+      "session_data": "e30:1ndFmh:WWrY0budbYEM3TscPHmzGTtgrQhN30_jxNH3jNplxfo",
+      "expire_date": "2022-04-23T18:26:07.576Z"
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "m8wlfyzqo8rgrhpridodjmadlujb151n",
+    "fields": {
+      "session_data": "e30:1ndJ8J:Di6A4bnTcMNjo9sNnJwWqufqBFpfB-FCk9njwGP31jE",
+      "expire_date": "2022-04-23T22:00:39.440Z"
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "mtt3ubsfzgh84fab6au6z7af288u9qvr",
+    "fields": {
+      "session_data": "e30:1ndGbb:0oaBrEvq1uJn4iOHQS6twT0LSh_F1f7qTq_E8LRgoRA",
+      "expire_date": "2022-04-23T19:18:43.642Z"
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "ni1k8rovbbo6ri5t37zen9q9db05kn6w",
+    "fields": {
+      "session_data": "e30:1ndG7W:-uOaQMaGVORG0cqxYTJjBpHhuEUmAZaliJzcLLoh_1s",
+      "expire_date": "2022-04-23T18:47:38.410Z"
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "ny9iq8q0r3yqh3cko2bhbnz2tmc3jsjw",
+    "fields": {
+      "session_data": "e30:1ndGUU:sIGU3LXeWz33VoRUmclWOjs6BmAl311-DI1db-aX7wk",
+      "expire_date": "2022-04-23T19:11:22.579Z"
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "o33n9t58kldkwpyzndnv0rhkd25flkq5",
+    "fields": {
+      "session_data": "e30:1ndFtz:S4HknWHDLoAf7fM5Tc0rOHvM8VLZHcSSydvKkOSugYo",
+      "expire_date": "2022-04-23T18:33:39.122Z"
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "q23r5fo4phqske5ga68c54cdc538pd1m",
+    "fields": {
+      "session_data": "e30:1ndGCD:Kkb3bNVO7vXV1hfBCIyWJYS2bFTf24X8tj6_emaeqIQ",
+      "expire_date": "2022-04-23T18:52:29.000Z"
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "qcc541tf19jax7uccn8b2j26e9ten5a8",
+    "fields": {
+      "session_data": "e30:1ndGHE:v-a38fHBO8klA9t1Yw-YGAMUF2vN3Yszfc_qoflzqz4",
+      "expire_date": "2022-04-23T18:57:40.227Z"
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "qlfa4uv5fyqfsj52dgoh7ts1j20fyid4",
+    "fields": {
+      "session_data": "e30:1ndG1l:-1cqVUe0L-lYaSX-blWxplGtEO1L3vZ9gG0a4hntiZk",
+      "expire_date": "2022-04-23T18:41:41.573Z"
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "rkcop9k6p351wb6ngyxvkbrsot05su45",
+    "fields": {
+      "session_data": "e30:1ndGV5:iIMmQIAa3VeMZxpCNWltecNmyXb_7Jk6rl6I520gk7c",
+      "expire_date": "2022-04-23T19:11:59.052Z"
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "rq9d4zf5tylk1nj1ezaq2c8hg6izd1xc",
+    "fields": {
+      "session_data": "e30:1ndG7W:-uOaQMaGVORG0cqxYTJjBpHhuEUmAZaliJzcLLoh_1s",
+      "expire_date": "2022-04-23T18:47:38.860Z"
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "rvkl84rfpl5csildn80b8xh4nwu4j6h7",
+    "fields": {
+      "session_data": "e30:1ndEiD:_JAgVxvmTrapHEqDpooyMrXYjmi4ByU_xii_PRfOaS4",
+      "expire_date": "2022-04-23T17:17:25.343Z"
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "sy97sebsgwiohifo59yt0skw3rdkhv2b",
+    "fields": {
+      "session_data": "e30:1ncfeM:X3_FM3N_-O_yy-BBjei7BKFuWfOa7upPFEr4oSGtLv0",
+      "expire_date": "2022-04-22T03:51:06.429Z"
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "yh9ax9dvvy923xey4w1hocczjt4sqmih",
+    "fields": {
+      "session_data": "e30:1ndGZi:eif_d7WfLEuz0ZpsXpyCjp_J2QCD_6U3WO1pa3MkS-c",
+      "expire_date": "2022-04-23T19:16:46.419Z"
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "ypue49op0gqbcuvatui08il39f3ku22y",
+    "fields": {
+      "session_data": "e30:1ndGHD:eXal4Gzi0f5IipvcZM4-Y8T-xpz8GTtJFieBuYnS-Q4",
+      "expire_date": "2022-04-23T18:57:39.772Z"
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "z4mcazpxx2frpdrj8q9e74uavlky8hp9",
+    "fields": {
+      "session_data": "e30:1ndGEE:C-gfd-6uBd2CKFX8osFo8xhQgM-Qpo0H3TfD2GaRaxA",
+      "expire_date": "2022-04-23T18:54:34.005Z"
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "za29kiur3amuh0xt7xedjaqz85dpux2t",
+    "fields": {
+      "session_data": "e30:1ndGCC:7W9JF91qS5YbmkijREMmKJDYu70zmuCDS4XY58uio4s",
+      "expire_date": "2022-04-23T18:52:28.988Z"
+    }
+  },
+  {
+    "model": "musicrater.spotifyusers",
+    "pk": "11101034616",
+    "fields": {
+      "display_name": "Lewis Chao",
+      "created_at": "2022-04-14T02:01:34.706Z",
+      "refresh_token": "AQAdsJvE1VTJ9TzaU1PkFcHTKTFhDQVXFVjR7lZZZyWbf6yEklkSTfi7TQ4LpOvd6XQlz71bQP6mKVdOsQuCLiUW1qY_9Z1_uXcD2WkW1VBRvmiLYkq4ekuOMTzl7omqpbk",
+      "access_token": "BQAAGRoQuXhqaqFfGS5R1k0mxNwkNdTbF2x96U9jEmo4RmT-vGdu_y1NnqTKN3gBp1Jub7QKzrzFyqHLDtbE6HLp0zGfNpCHlcfAshrA6EapJerUxEhJ5JPAYoDWoCAm_CeDSRx2LfLKZGfwgNSp-xakBkVcw5UXBw",
+      "expires_in": "2022-04-14T03:01:34.706Z",
+      "token_type": "Bearer",
+      "session_id": "baaa582f-268a-464a-8b5e-f2d110efc6e5"
+    }
+  },
+  {
+    "model": "musicrater.spotifyusers",
+    "pk": "31irla23o6kwv6mar22ilxbmggiy",
+    "fields": {
+      "display_name": "Lewis Chao",
+      "created_at": "2022-04-10T17:49:07.105Z",
+      "refresh_token": "AQBRbL6SS_cs9SEJYjRkpmHJaPaNF6W8KW6S8yAdFXo9JC6rQTCu5STUDR9eU7mI8vUJ06-b2yMFLL8AefFrIGASWT6yGSVbJ57d6kKKgtBjNLCID9vmj0SAjs4Ema6h8aY",
+      "access_token": "BQCE-0rRdOQPSvHdoMzji07ci7y-nchkzdn-5W9ao59NK5MR76EBrs0pQqSH60JliKCNfgBrHhHOR0PTsTNxLODnPIBRjKszZqT8hPtkIVryYx4mdRoDusSXdWRXyjEFXfpi2nZXZ7pWYQuZSTc7WHYAgMyn7ngiDTWb8hJywiP-5rc",
+      "expires_in": "2022-04-10T18:49:07.105Z",
+      "token_type": "Bearer",
+      "session_id": "22eb3c7c-3eeb-4da4-894e-e0db8bd5bc30"
+    }
+  },
+  {
+    "model": "musicrater.spotifyusers",
+    "pk": "31wp2dllplbxwppqfslz7lpwh3gi",
+    "fields": {
+      "display_name": "Software Bot",
+      "created_at": "2022-04-11T02:14:09.701Z",
+      "refresh_token": "AQCs-eU_tv2tm31fMKrRbkP52GzVhLrLLeS1kjVlCczIcgRrGdQOSYuvzb1FGddJnDZd7IkCj3WrQOwVqYYdGONvYmQzSjYxeFg3YK0U7t-PeXTJXHbaDtkScKC-cNWAWZA",
+      "access_token": "BQC5VMmV5Y6bVlPWEnwdcf8BFQXlKtig7euXtgy2f3bJ2Olzft1Zo1iBz0qNdG1BsZD-kSpjtI8SVTKE2YEqzMZ6hm_dw-YiGrZC8YXfkmfzQUlWq7IgE-Ew_6gH9hhMsaTPUUKLlP4LAllILHKIdncmmPpL95AOlhnFgUpkjSoXdQ",
+      "expires_in": "2022-04-11T03:14:09.701Z",
+      "token_type": "Bearer",
+      "session_id": "99b3bbb3-a4e2-4585-8369-0f820f8db70b"
+    }
+  },
+  {
+    "model": "musicrater.artists",
+    "pk": "Don't Forget Me (SMASH Cast Version) (feat. Katharine McPhee)",
+    "fields": { "artist": "SMASH Cast", "trackId": "0SWuep5YnBMFL9BVf7yeko" }
+  },
+  {
+    "model": "musicrater.artists",
+    "pk": "Fine",
+    "fields": { "artist": "Hunter Foster", "trackId": "1bLcXFOmn1e2pJwWP2SvEf" }
+  },
+  {
+    "model": "musicrater.artists",
+    "pk": "Forgive Myself",
+    "fields": { "artist": "Sam Smith", "trackId": "5wHRQRy339ghP31x0hUWcQ" }
+  },
+  {
+    "model": "musicrater.artists",
+    "pk": "Friend Like Me",
+    "fields": {
+      "artist": "Matthew Morrison",
+      "trackId": "2raHQqtEu7uRKcgk1vXVzk"
+    }
+  },
+  {
+    "model": "musicrater.artists",
+    "pk": "I Drink Wine",
+    "fields": { "artist": "Adele", "trackId": "6v0UJD4a2FtleHeSYVX02A" }
+  },
+  {
+    "model": "musicrater.artists",
+    "pk": "Let Somebody Go",
+    "fields": { "artist": "Coldplay", "trackId": "4cGqn0E8JCSY9gQllQj4Mf" }
+  },
+  {
+    "model": "musicrater.artists",
+    "pk": "Nothing Breaks Like a Heart (feat. Miley Cyrus)",
+    "fields": { "artist": "Mark Ronson", "trackId": "02dRkCEc8Q5ch4TTcnLxOn" }
+  },
+  {
+    "model": "musicrater.artists",
+    "pk": "On My Way (Marry Me)",
+    "fields": {
+      "artist": "Jennifer Lopez",
+      "trackId": "6p9gMpEXeT18L9zsY5w10h"
+    }
+  },
+  {
+    "model": "musicrater.artists",
+    "pk": "Piece by Piece",
+    "fields": {
+      "artist": "Kelly Clarkson",
+      "trackId": "2NELtMgQ8HSdrGrYQPLnC3"
+    }
+  },
+  {
+    "model": "musicrater.artists",
+    "pk": "Seventeen Going Under",
+    "fields": { "artist": "Sam Fender", "trackId": "5rF6YUIlgiat22OT1lWspJ" }
+  },
+  {
+    "model": "musicrater.artists",
+    "pk": "Sugar Daddy",
+    "fields": {
+      "artist": "Hedwig And The Angry Inch - Original Broadway Cast",
+      "trackId": "63lUWddAaxY4axPCzwf4bD"
+    }
+  },
+  {
+    "model": "musicrater.artists",
+    "pk": "Telephone Wire",
+    "fields": { "artist": "Beth Malone", "trackId": "1slR1ayGGyNR6suZyH3Shk" }
+  },
+  {
+    "model": "musicrater.artists",
+    "pk": "The World Will Know",
+    "fields": { "artist": "Jeremy Jordan", "trackId": "2oMCHQh9SuyzGPl4Qw6jwl" }
+  },
+  {
+    "model": "musicrater.artists",
+    "pk": "Up the Ladder to the Roof",
+    "fields": {
+      "artist": "Sherie Rene Scott",
+      "trackId": "50zPNgLmYs5fl2mRHvwwpV"
+    }
+  },
+  {
+    "model": "musicrater.artists",
+    "pk": "Welcome To The Moulin Rouge!",
+    "fields": {
+      "artist": "Danny Burstein",
+      "trackId": "2MPDYUvtXgRAHzr6dJzTxq"
+    }
+  },
+  {
+    "model": "musicrater.artists",
+    "pk": "You're in the Band",
+    "fields": {
+      "artist": "The Original Broadway Cast Of School Of Rock",
+      "trackId": "4kX4J9HvSe04mLyaeY0dUk"
+    }
+  },
+  {
+    "model": "musicrater.ratings",
+    "pk": 1,
+    "fields": {
+      "username": "11101034616",
+      "song": "Welcome To The Moulin Rouge!",
+      "rating": 2
+    }
+  },
+  {
+    "model": "musicrater.ratings",
+    "pk": 2,
+    "fields": { "username": "11101034616", "song": "I Drink Wine", "rating": 5 }
+  },
+  {
+    "model": "musicrater.ratings",
+    "pk": 3,
+    "fields": { "username": "11101034616", "song": "Sugar Daddy", "rating": 4 }
+  },
+  {
+    "model": "musicrater.ratings",
+    "pk": 4,
+    "fields": {
+      "username": "11101034616",
+      "song": "Let Somebody Go",
+      "rating": 5
+    }
+  },
+  {
+    "model": "musicrater.ratings",
+    "pk": 5,
+    "fields": {
+      "username": "11101034616",
+      "song": "Nothing Breaks Like a Heart (feat. Miley Cyrus)",
+      "rating": 3
+    }
+  },
+  {
+    "model": "musicrater.ratings",
+    "pk": 10,
+    "fields": {
+      "username": "11101034616",
+      "song": "Don't Forget Me (SMASH Cast Version) (feat. Katharine McPhee)",
+      "rating": 5
+    }
+  },
+  {
+    "model": "musicrater.ratings",
+    "pk": 11,
+    "fields": {
+      "username": "11101034616",
+      "song": "Friend Like Me",
+      "rating": 5
+    }
+  },
+  {
+    "model": "musicrater.ratings",
+    "pk": 12,
+    "fields": {
+      "username": "11101034616",
+      "song": "The World Will Know",
+      "rating": 3
+    }
+  },
+  {
+    "model": "musicrater.ratings",
+    "pk": 13,
+    "fields": {
+      "username": "11101034616",
+      "song": "On My Way (Marry Me)",
+      "rating": 2
+    }
+  },
+  {
+    "model": "musicrater.ratings",
+    "pk": 14,
+    "fields": {
+      "username": "11101034616",
+      "song": "Piece by Piece",
+      "rating": 2
+    }
+  }
+]
