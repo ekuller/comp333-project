@@ -5,7 +5,6 @@ import Modal from "./Modal";
 import axios from "axios";
 
 import { Container, Row, Col, Button, Badge } from "reactstrap";
-import classnames from "classnames";
 
 export default class YourRatings extends React.Component {
 	constructor(props) {
