@@ -290,4 +290,11 @@ class EditSong(APIView):
         ratings.song=Artists.objects.get_or_create(song=song, artist=artist)[0]
         ratings.save()
         return deleteSongIfEmpty(initSong)
+
+# check if a user has already rated a song
+class SongInDb(APIView):
+    def get(self, request, song, user):
+        res=Ratings.objects.filter(song=song,username=user ).exists()
+        return Response({'exists': res}, status=status.HTTP_200_OK)
+
     

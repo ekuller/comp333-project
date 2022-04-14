@@ -91,16 +91,51 @@ export default class CustomModal extends Component {
 									? false
 									: true
 							}
-							onClick={() =>
-								onSave(this.state.song, this.state.rating, this.state.artist)
-							}
+							onClick={() => {
+								axios
+									.get(
+										"http://127.0.0.1:8000/rater/song-in-db/" +
+											this.state.song +
+											"/" +
+											this.props.username
+									)
+									.then((res) => {
+										if (res.data["exists"]) {
+											toggle();
+											alert(
+												"Cannot rate song. Song already rated. You may modify an existing song's rating in 'Your Ratings'"
+											);
+										} else
+											onSave(
+												this.state.song,
+												this.state.rating,
+												this.state.artist
+											);
+									});
+							}}
 						>
 							Rate
 						</Button>
 					) : (
 						<Button
 							disabled={this.state.song || this.state.artist ? false : true}
-							onClick={() => onSave(this.state.song, this.state.artist)}
+							onClick={() => {
+								axios
+									.get(
+										"http://127.0.0.1:8000/rater/song-in-db/" +
+											this.state.song +
+											"/" +
+											this.props.username
+									)
+									.then((res) => {
+										if (res.data["exists"]) {
+											toggle();
+											alert(
+												"Cannot rate song. Song already rated. You may modify an existing song's rating in 'Your Ratings'"
+											);
+										} else onSave(this.state.song, this.state.artist);
+									});
+							}}
 						>
 							Edit
 						</Button>

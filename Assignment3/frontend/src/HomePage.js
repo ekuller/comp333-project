@@ -99,7 +99,11 @@ export default class HomePage extends React.Component {
 					</TabPanel>
 				</Tabs>
 				{this.state.modal ? (
-					<Modal toggle={this.toggle} onSave={this.handleSubmit} />
+					<Modal
+						toggle={this.toggle}
+						onSave={this.handleSubmit}
+						username={this.props.username}
+					/>
 				) : null}
 			</div>
 		);

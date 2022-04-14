@@ -27,5 +27,6 @@ urlpatterns = [
     path('rate/',include(rRouter.urls) ),
     path('song',include(sRouter.urls) ),
     path('delete-song/<str:song>', views.DeleteSong.as_view()),
+    path('song-in-db/<str:song>/<str:user>', views.SongInDb.as_view()),
     path('edit-song/<str:ratingKey>/<str:artist>/<str:song>', views.EditSong.as_view())
 ]
