@@ -46,7 +46,6 @@ export default class YourRatings extends React.Component {
 					song: song.song,
 					username: this.props.username,
 				})
-				.then(() => {})
 				.then(() => {
 					if (this.props.social) {
 						this.getSumRatings();
@@ -70,13 +69,13 @@ export default class YourRatings extends React.Component {
 						artist: song.artist,
 						trackId: song.key,
 					})
-					.then(() => this.addRating(song.song, rating))
-					.then(() => {
-						if (this.props.social) {
-							this.getSumRatings();
-						}
-					});
-			} else this.addRating(song.song, rating);
+					.then(() => this.addRating(song.song, rating));
+			} else
+				this.addRating(song.song, rating).then(() => {
+					if (this.props.social) {
+						this.getSumRatings();
+					}
+				});
 			if (!this.props.yourRatings & !this.props.social) this.swapSong(song);
 		}
 	};
