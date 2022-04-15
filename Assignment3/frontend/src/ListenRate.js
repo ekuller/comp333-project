@@ -125,7 +125,7 @@ export default class YourRatings extends React.Component {
         // currSongs.splice(index, 1);
         // currSongs.push(res.data["newSong"]);
         currSongs[index] = res.data["newSong"];
-        console.log(res.data["newSong"]);
+        //console.log(res.data["newSong"]);
         this.setState({
           songs: currSongs,
         });

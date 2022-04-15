@@ -194,7 +194,7 @@ class TopSongs(APIView):
             numTopSongs=len(response["items"])
         else: 
             numTopSongs=5
-        numOther= 5- len(response["items"])
+        numOther= 5 - len(response["items"])
         for track in response["items"][:numTopSongs]:
             if not songRated(track["name"], user):
                 tracks.append({'song':track["name"],
@@ -294,7 +294,7 @@ class EditSong(APIView):
 # check if a user has already rated a song
 class SongInDb(APIView):
     def get(self, request, song, user):
-        res=Ratings.objects.filter(song=song,username=user ).exists()
+        res=Ratings.objects.filter(song=song).filter(username=user).exists()
         return Response({'exists': res}, status=status.HTTP_200_OK)
 
     

@@ -42,8 +42,8 @@ export default class HomePage extends React.Component {
   handleSubmit = (song, rating, artist) => {
     this.toggle();
     axios.get("http://127.0.0.1:8000/rater/song").then((res) => {
-      for (let i in res) {
-        if (i.song === song) {
+      for (let i in res.data) {
+        if (res.data[i].song === song) {
           this.addRating(song, rating);
           return;
         }
