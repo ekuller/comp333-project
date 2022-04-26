@@ -297,4 +297,16 @@ class SongInDb(APIView):
         res=Ratings.objects.filter(song=song).filter(username=user).exists()
         return Response({'exists': res}, status=status.HTTP_200_OK)
 
+
+class addRating(APIView):
+    def post(self, request, song, artist, rating, user):
+        ratings=Ratings.objects.get(id=ratingKey)
+        r=Ratings()
+        r.artist=artist
+        r.song=song
+        r.rating=rating
+        r.user=user
+        r.save()
+        return Response({}, status=status.HTTP_200_OK)
+
     
