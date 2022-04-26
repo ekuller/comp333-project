@@ -29,7 +29,7 @@ urlpatterns = [
 
     #get users ratings
     #get request 
-    #returns {ratings:[(song: <song name> ,artist: <song's artist>,rating:<user's rating>, key: <primary_key for rating>, user: <user>},...]}
+    #returns {ratings:[(song: <song name> ,artist: <song's artist>,rating:<user's rating>, id: <primary_key for rating>, user: <user>},...]}
     path('user-ratings/<str:user>', views.UserRatings, name='views.UserRatings.as_view()'),
 
     #get summary ratings for all songs (for social tab)
