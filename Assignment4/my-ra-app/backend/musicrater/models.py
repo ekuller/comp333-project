@@ -10,15 +10,6 @@ class Ratings(models.Model):
         verbose_name_plural = "Ratings"
     def __str__(self):
         return (self.username.spotifyID + " gave " + self.song.song + " a " + str(self.rating))
-    def for_ratings(self):
-        return dict(
-        song =self.song,
-        artist=self. artist,
-        rating=self.rating)
-
-
-
-    
     
     
     
