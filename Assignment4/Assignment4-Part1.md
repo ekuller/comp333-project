@@ -1,52 +1,16 @@
-# COMP333 Homework 3
+### BACKEND
 
-## Installing and Accessing The App
+https://lewis-eliza-music-rater.herokuapp.com/rater/
 
-1. Start a Python virtual environment and activate it. In the shell, type
+### FRONTEND
 
-```
-python3 -m venv my-venv
-source my-venv/bin/activate
-```
+https://music-rater-lewis-eliza.firebaseapp.com/
 
-2. Make sure you are in the Assignment3 directory in the comp333-project repository
+The frontend link will direct you to our functional web app.
 
-3. Install Django and required modules in your virtual environment, load the data, and run the backend for our app.
+Login with the following Spotify account: Email -- `comp333test@aol.com`; Password -- `software1!`.
 
-```
-pip3 install Django
-pip3 install django-cors-headers
-pip3 install djangorestframework
-pip3 install requests
-python3 manage.py makemigrations
-python3 manage.py migrate
-python3 manage.py runserver
-```
-
-4. In a second terminal change your directory to Assignment3/frontend and activate my-venv. Install the necessary packages/dependencies.
-
-```
-source ../my-venv/bin/activate
-npm init --yes
-npm install react
-npm install react-client-session --save
-npm install uuid
-npm install reactstrap
-npm install axios
-npm install react-tabs
-```
-
-5. Start the frontend
-
-```
-npm start
-```
-
-6. Go to [http://localhost:3000/](http://localhost:3000/) to access the app
-
-7. Login with the following Spotify account: Email -- `comp333test@aol.com`; Password -- `software1!`.
-
-## Features
+### Features
 
 Our app is connected to Spotify. It uses the Spotify api to recommend tracks specifically for a logged in user. You must log in with a Spotify account to access our app. Because our app is in development mode Spotify limits the number of accounts that can be used with our app. Thus, only specified accounts can be used to login with our app. Please use the provided Spotify account to test our app. If you want to experience the app with your Spotify account contact us with the email linked to your Spotify account and we can authorize your account.
 
