@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<body>
+	{% load static %}
+	<link rel="stylesheet" type="text/css" href="{% static 'musicrater/style.css' %}" />
+	<div class="h-center v-center">
+		Login Unsuccessful. <br>
+		Please login with the credentials we provide. <br>
+		Click <a href="https://www.spotify.com/logout/" target="_blank">here</a> to logout from this Spotify
+		account.<br>
+		We will redirect you back to our app in <span id="second">7</span> seconds.
+	</div>
+	<script>
+
+		let timeleft = 6;
+		setInterval(function () {
+			if (timeleft <= 0) {
+				clearInterval(downloadTimer);
+				document.getElementById("second").innerHTML = "0";
+			} else {
+				document.getElementById("second").innerHTML = timeleft;
+			}
+			timeleft -= 1;
+		}, 1000);
+
+		function redirect() {
+			window.location.href = "http://localhost:3000/";
+		}
+		setTimeout(redirect, 8000);
+
+	</script>
+</body>
+
+</html>
