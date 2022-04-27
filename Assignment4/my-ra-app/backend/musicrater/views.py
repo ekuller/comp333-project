@@ -27,26 +27,31 @@ class AddRating(APIView):
             r.save()
             return Response({"status":'ok'}, status=status.HTTP_200_OK)
 
-# edit a rating
-# {status:<'ok' if rating edited>
-class EditRating(APIView):
-    def put(self, request, key, newRating):
-        rating=Ratings.objects.get(id=key)
-        rating.rating=newRating
-        return Response({status:'ok'}, status=status.HTTP_200_OK)
+# # edit a rating
+# # {status:<'ok' if rating edited>
+# class EditRating(APIView):
+#     def put(self, request, key, newRating):
+#         rating=Ratings.objects.get(id=key)
+#         rating.rating=newRating
+#         return Response({status:'ok'}, status=status.HTTP_200_OK)
 
 # modify the song of a rating
 # returns {status:<'ok' if song edited or 'rating exists' if the user has already rated a song with the new song and new artist>}
-class EditSong(APIView):
-    def put(self, request, key, artist, song):
+class Edit(APIView):
+    def put(self, request, key, artist, song, rating):
         rating=Ratings.objects.get(id=key)
-        exists=Ratings.objects.filter(song=song).filter(user=rating.user).filter(artist=artist).exists()
-        if exists: return Response({status:'rating exists'}, status=status.HTTP_200_OK)
-        else:
-            rating.song=song
-            rating.artist=artist
-            rating.save()
+        if(rating.artist==artist and rating.song==song):
+            rating.rating=newRating
             return Response({status:'ok'}, status=status.HTTP_200_OK)
+        else:
+            exists=Ratings.objects.filter(song=song).filter(user=rating.user).filter(artist=artist).exists()
+            if exists: return Response({status:'rating exists'}, status=status.HTTP_200_OK)
+            else:
+                rating.rating=rating
+                rating.song=song
+                rating.artist=artist
+                rating.save()
+                return Response({status:'ok'}, status=status.HTTP_200_OK)
 
 # delete rating
 # returns {status:<'ok' if song edited deleted>}

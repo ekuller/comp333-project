@@ -13,14 +13,7 @@ urlpatterns = [
     path('add-rating/<str:song>/<str:artist>/<int:rating>/<str:user>', views.AddRating.as_view(), name='views.AddRating.as_view()'),
 
     # edit a rating
-    # put request
-    # {status:<'ok' if rating edited>
-    path('edit-rating/<int:key>/<str:newRating>', views.EditRating.as_view(), name='views.EditRating.as_view()'),
-
-    # edit song and artist
-    #put request 
-    # returns {status:<'ok' if song edited or 'rating exists' if the user has already rated a song with the new song and new artist>}
-    path('edit-song-artist/<int:key>/<str:song>/<str:artist>', views.EditSong.as_view(), name='views.EditSong.as_view()'),
+    path('edit/<int:key>/<str:song>/<str:artist>', views.Edit.as_view(), name='views.Edit.as_view()'),
 
     # delete rating
     # delete request
