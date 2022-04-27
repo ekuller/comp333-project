@@ -73,6 +73,7 @@ export default function CreateRating(props) {
 					autoCorrect={false}
 					autoCapitalize="none"
 					onChangeText={(newText) => setSong(newText)}
+					value={song}
 				/>
 				<Text style={{ fontSize: 20, marginBottom: 5 }}>Artist</Text>
 				<TextInput
@@ -81,6 +82,7 @@ export default function CreateRating(props) {
 					autoCorrect={false}
 					autoCapitalize="none"
 					onChangeText={(newText) => setArtist(newText)}
+					value={artist}
 				/>
 
 				<Text style={{ fontSize: 20, marginBottom: 5 }}>Rating</Text>
@@ -90,10 +92,13 @@ export default function CreateRating(props) {
 					autoCorrect={false}
 					autoCapitalize="none"
 					onChangeText={(newText) => setRating(newText)}
+					value={rating}
 				/>
 				<Pressable
 					style={styles.button}
-					onPress={() => submit(song, artist, rating)}
+					onPress={() => {
+						verify(song.trim(), artist.trim(), rating.trim());
+					}}
 				>
 					<Text style={styles.text}>Submit</Text>
 				</Pressable>

@@ -1,22 +1,23 @@
-import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View, SafeAreaView, Button } from "react-native";
+import { StyleSheet, SafeAreaView } from "react-native";
 import Login from "./components/Login";
 import Homepage from "./components/Homepage";
 import React, { useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import Ionicons from "react-native-vector-icons/Ionicons";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 export default function App() {
+  const [curUsername, setCurUsername] = useState("me");
   const [login, setLogin] = useState(false);
   if (login) {
-    return <Homepage />;
+    return <Homepage curUsername={curUsername} handleLogout={setLogin} />;
   } else {
     return (
       <NavigationContainer>
         <SafeAreaView style={styles.container}>
-          <Login loginChanger={setLogin} />
+          <Login
+            loginChanger={setLogin}
+            userChanger={setCurUsername}
+            curUsername={curUsername}
+          />
         </SafeAreaView>
       </NavigationContainer>
     );

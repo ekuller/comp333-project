@@ -11,6 +11,7 @@ import {
 } from "react-native";
 
 export default function Login(props) {
+<<<<<<< HEAD
 	const verify = (user, pwd) => {
 		if (user === "user" && pwd === "pwd") {
 			props.loginChanger(true);
@@ -73,6 +74,66 @@ export default function Login(props) {
 					<Text style={styles.text}>Log in</Text>
 				</Pressable>
 			</View>
+=======
+  const verify = (user, pwd) => {
+    props.loginChanger(true);
+    props.userChanger(user);
+  };
+
+  const [password, setPassword] = useState("");
+  return (
+    <SafeAreaView style={styles.container}>
+      <View
+        style={{
+          flex: 1,
+          backgroundColor: "white",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <Text
+          style={{
+            fontSize: 35,
+          }}
+        >
+          Music Rater Login
+        </Text>
+      </View>
+
+      <View
+        style={{
+          flex: 1.5,
+          backgroundColor: "white",
+          justifyContent: "flex-start",
+          alignItems: "center",
+        }}
+      >
+        <Text style={{ fontSize: 20, marginBottom: 5 }}>Username</Text>
+        <TextInput
+          style={styles.inputContainer}
+          placeholder="Username"
+          autoCorrect={false}
+          autoCapitalize="none"
+          onChangeText={(newText) => props.userChanger(newText)}
+        />
+
+        <Text style={{ fontSize: 20, marginBottom: 5 }}>Password</Text>
+        <TextInput
+          style={styles.inputContainer}
+          placeholder="Password"
+          secureTextEntry={true}
+          autoCorrect={false}
+          autoCapitalize="none"
+          onChangeText={(newText) => setPassword(newText)}
+        />
+        <Pressable
+          style={styles.button}
+          onPress={() => verify(props.curUsername, password)}
+        >
+          <Text style={styles.text}>Log in</Text>
+        </Pressable>
+      </View>
+>>>>>>> cb54be95cb9c5269e830a14b24907578903c218d
 
 			<StatusBar style="auto" />
 		</SafeAreaView>

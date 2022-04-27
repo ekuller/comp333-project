@@ -2,11 +2,11 @@ import { StyleSheet, Text, View, SafeAreaView, Button } from "react-native";
 import React, { useState } from "react";
 
 export default function AllRating(props) {
-  const { artist, song, rating } = props.rating;
+  const { artist, song, average } = props.rating;
   return (
     <View style={styles.container(props.idx)}>
       <Text style={styles.text}>
-        {song.toUpperCase()} — {rating}
+        {song.toUpperCase()} — {average}
       </Text>
 
       <Text>{artist}</Text>
