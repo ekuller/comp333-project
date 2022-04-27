@@ -17,6 +17,7 @@ class AddRating(APIView):
         exists=Ratings.objects.filter(song=song).filter(user=user).filter(artist=artist).exists()
         print(song,artist,rating,user)
         if exists: return Response({"status":'rating exists'}, status=status.HTTP_200_OK)
+        if not (rating<=5 and rating>0): return Response({"status":'invalid rating'}, status=status.HTTP_200_OK)
         else:
             r=Ratings()
             r.artist=artist

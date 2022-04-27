@@ -10,7 +10,7 @@ urlpatterns = [
     # add a new rating 
     # post request
     # returns {status:<'ok' if rating added or 'rating exists' if rating is already in db>}
-    path('add-rating/<str:song>/<str:artist>/<str:rating>/<str:user>', views.AddRating.as_view(), name='views.AddRating.as_view()'),
+    path('add-rating/<str:song>/<str:artist>/<int:rating>/<str:user>', views.AddRating.as_view(), name='views.AddRating.as_view()'),
 
     # edit a rating
     # put request

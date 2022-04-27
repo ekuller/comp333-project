@@ -31,6 +31,8 @@ export default function CreateRating(props) {
 					Alert.alert(
 						"You already rated this song. You can modify a rating in the 'Your Ratings' tab."
 					);
+				} else if (res.data["status"] === "invalid rating") {
+					Alert.alert("Rating needs to be 1-5. Please enter a valid rating.");
 				}
 			});
 	};
@@ -97,7 +99,7 @@ export default function CreateRating(props) {
 				<Pressable
 					style={styles.button}
 					onPress={() => {
-						verify(song.trim(), artist.trim(), rating.trim());
+						submit(song.trim(), artist.trim(), rating.trim());
 					}}
 				>
 					<Text style={styles.text}>Submit</Text>
