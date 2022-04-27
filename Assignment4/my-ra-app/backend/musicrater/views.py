@@ -1,15 +1,11 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect, HttpResponse
-from .models import SpotifyUsers, Artists, Ratings, Emojis
+from .models import Ratings
 from requests import post, get
 from rest_framework.views import APIView
 from .credentials import REDIRECT_URI, CLIENT_SECRET, CLIENT_ID
 from rest_framework.response import Response
 from rest_framework import status
-from .util import *
-from django.core import serializers
-from rest_framework import viewsets
-from .serializers import RateSerializer, SongSerializer
 
 def index(request):
     return render(request, '../frontendbuild/index.html')
@@ -19,7 +15,8 @@ def index(request):
 class AddRating(APIView):
     def post(self, request, song, artist, rating, user):
         exists=Ratings.objects.filter(song=song).filter(user=user).filter(artist=artist).exists()
-        if exists: return Response({status:'rating exists'}, status=status.HTTP_200_OK)
+        print(song,artist,rating,user)
+        if exists: return Response({"status":'rating exists'}, status=status.HTTP_200_OK)
         else:
             r=Ratings()
             r.artist=artist
@@ -27,7 +24,7 @@ class AddRating(APIView):
             r.rating=rating
             r.user=user
             r.save()
-            return Response({status:'ok'}, status=status.HTTP_200_OK)
+            return Response({"status":'ok'}, status=status.HTTP_200_OK)
 
 # edit a rating
 # {status:<'ok' if rating edited>
