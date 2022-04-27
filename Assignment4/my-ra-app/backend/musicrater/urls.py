@@ -4,29 +4,38 @@ from rest_framework import routers
 
 app_name = 'musicrater'
 
-
-rRouter = routers.DefaultRouter()
-rRouter.register(r'', views.RateView, 'musicrater')
-
-sRouter = routers.DefaultRouter()
-sRouter.register(r'', views.SongView, 'musicrater')
-
 urlpatterns = [
     path('', views.index, name='index'),
-    path('register', views.register, name='register'),
-    path('reg_succ', views.reg_succ, name='reg_succ'),
-    path('retrieve', views.retrieve, name='retrieve'),
-    path('retrieveByEmoji', views.retrieveByEmoji, name='retrieveByEmoji'),
-    path('redirect', views.spotify_callback),
-    path('loginfailed', views.login_failed, name='login_failed'),
-    path('is-authenticated/<str:session_id>', views.IsAuthenticated.as_view()),
-    path('get-top-songs/<str:session_id>', views.TopSongs.as_view()),
-    path('get-ratings/<str:spotifyID>', views.UserRatings.as_view()),
-    path('get-ratings-summary/<str:spotifyID>', views.RatingsSummary.as_view()),
-    path('get-new-rec/<str:sessionId>/<str:trackId>', views.Recomendation.as_view()),
-    path('rate/',include(rRouter.urls) ),
-    path('song',include(sRouter.urls) ),
-    path('delete-song/<str:song>', views.DeleteSong.as_view()),
-    path('song-in-db/<str:song>/<str:user>', views.SongInDb.as_view()),
-    path('edit-song/<str:ratingKey>/<str:artist>/<str:song>', views.EditSong.as_view())
+    
+    # add a new rating 
+    # post request
+    # returns {status:<'ok' if rating added or 'rating exists' if rating is already in db>}
+    path('add-rating/<str:song>/<str:artist>/<str:rating>/<str:user>', views.AddRating, name='views.AddRating.as_view()'),
+
+    # edit a rating
+    # put request
+    # {status:<'ok' if rating edited>
+    path('edit-rating/<int:key>/<str:newRating>', views.EditRating, name='views.EditRating.as_view()'),
+
+    # edit song and artist
+    #put request 
+    # returns {status:<'ok' if song edited or 'rating exists' if the user has already rated a song with the new song and new artist>}
+    path('edit-song-artist/<int:key>/<str:song>/<str:artist>', views.EditSong, name='views.EditSong.as_view()'),
+
+    # delete rating
+    # delete request
+    # returns {status:<'ok' if song edited deleted>}
+    path('delete-rating/<int:key>', views.DeleteRating, name='views.DeleteRating.as_view()'),
+
+    #get users ratings
+    #get request 
+    #returns {ratings:[(song: <song name> ,artist: <song's artist>,rating:<user's rating>, id: <primary_key for rating>, user: <user>},...]}
+    path('user-ratings/<str:user>', views.UserRatings, name='views.UserRatings.as_view()'),
+
+    #get summary ratings for all songs (for social tab)
+    #get request
+    # returns {ratings:[(song: <song name> ,artist: <song's artist>,rating:<user's rating, none/null if not rated>, average: <average rating of song for all users>},...]}
+    path('summary-all-ratings/<str:user>', views.SummaryRatings, name='views.SummayRatings.as_view()'),
+
+    
 ]
