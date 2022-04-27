@@ -9,7 +9,7 @@ class Ratings(models.Model):
     class Meta:
         verbose_name_plural = "Ratings"
     def __str__(self):
-        return (self.username.spotifyID + " gave " + self.song.song + " a " + str(self.rating))
+        return (self.user + " gave " + self.song+ " a " + str(self.rating))
     
     
     

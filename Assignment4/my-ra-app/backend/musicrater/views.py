@@ -39,9 +39,12 @@ class AddRating(APIView):
 # returns {status:<'ok' if song edited or 'rating exists' if the user has already rated a song with the new song and new artist>}
 class Edit(APIView):
     def put(self, request, key, artist, song, rating):
+        nr=rating
         rating=Ratings.objects.get(id=key)
         if(rating.artist==artist and rating.song==song):
-            rating.rating=newRating
+            rating.rating=nr
+            rating.save()
+            print(rating)
             return Response({'status':'ok'}, status=status.HTTP_200_OK)
         else:
             exists=Ratings.objects.filter(song=song).filter(user=rating.user).filter(artist=artist).exists()
