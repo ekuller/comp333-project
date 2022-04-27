@@ -42,16 +42,16 @@ class Edit(APIView):
         rating=Ratings.objects.get(id=key)
         if(rating.artist==artist and rating.song==song):
             rating.rating=newRating
-            return Response({status:'ok'}, status=status.HTTP_200_OK)
+            return Response({'status':'ok'}, status=status.HTTP_200_OK)
         else:
             exists=Ratings.objects.filter(song=song).filter(user=rating.user).filter(artist=artist).exists()
-            if exists: return Response({status:'rating exists'}, status=status.HTTP_200_OK)
+            if exists: return Response({'status':'rating exists'}, status=status.HTTP_200_OK)
             else:
                 rating.rating=rating
                 rating.song=song
                 rating.artist=artist
                 rating.save()
-                return Response({status:'ok'}, status=status.HTTP_200_OK)
+                return Response({'status':'ok'}, status=status.HTTP_200_OK)
 
 # delete rating
 # returns {status:<'ok' if song edited deleted>}
@@ -67,8 +67,8 @@ class DeleteRating(APIView):
 # returns {ratings:[(song: <song name> ,artist: <song's artist>,rating:<user's rating>, key: <primary_key for rating>, user: <user>},...]}
 class UserRatings(APIView):
     def get(self, request, user):
-        ratings= Ratings.objects.filter(user=user)
-        return Response({ratings:ratings}, status=status.HTTP_200_OK)
+        ratings= Ratings.objects.filter(user=user).values()
+        return Response({'ratings':ratings}, status=status.HTTP_200_OK)
 
 #get summary ratings for all songs
 # returns {ratings:[(song: <song name> ,artist: <song's artist>, average: <average rating of song for all users>},...]}
@@ -82,15 +82,16 @@ class SummaryRatings(APIView):
             avg+=(1/count)* r.rating
         return avg
         
-    def get(self, request, user):
+    def get(self, request):
         res=[]
-        songs=Ratings.objects.values("song").distinct()
+        songs=Ratings.objects.values("song").distinct().values()
+        print(songs)
         for song in songs:
-            artists=Ratings.objects.filter(song=song).values("artist").distinct()
+            artists=Ratings.objects.filter(song=song['song']).values("artist").distinct()
             for artist in artists: 
                 res.append({
-                    'song': song,
-                    'artist': artist,
-                    'average': self.getAvgRating(song, artist),
+                    'song': song['song'],
+                    'artist': artist['artist'],
+                    'average': self.getAvgRating(song['song'], artist['artist']),
                 })
         return Response(res, status=status.HTTP_200_OK)
