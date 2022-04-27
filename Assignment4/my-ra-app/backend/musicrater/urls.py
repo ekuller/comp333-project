@@ -13,7 +13,7 @@ urlpatterns = [
     path('add-rating/<str:song>/<str:artist>/<int:rating>/<str:user>', views.AddRating.as_view(), name='views.AddRating.as_view()'),
 
     # edit a rating
-    path('edit/<int:key>/<str:song>/<str:artist>', views.Edit.as_view(), name='views.Edit.as_view()'),
+    path('edit/<int:key>/<str:song>/<str:artist>/<int:rating>', views.Edit.as_view(), name='views.Edit.as_view()'),
 
     # delete rating
     # delete request
