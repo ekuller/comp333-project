@@ -16,6 +16,8 @@ import Dialog from "react-native-dialog";
 import YourRating from "./YourRating";
 import AllRating from "./AllRating";
 import CreateRating from "./CreateRating";
+import AppLoading from "expo-app-loading";
+import { useFonts } from "expo-font";
 
 const Tab = createBottomTabNavigator();
 const SettingsStack = createNativeStackNavigator();
@@ -167,6 +169,7 @@ const InputDialog = (props) => {
 
 function DetailsScreen({ route, navigation }) {
   //the "Edit" screen on "Your Ratings " tab
+
   const { id } = route.params.rating;
   const [artist, setArtist] = useState(route.params.rating.artist);
   const [song, setSong] = useState(route.params.rating.song);
@@ -197,6 +200,7 @@ function DetailsScreen({ route, navigation }) {
               fontWeight: "bold",
               fontFamily: "Georgia",
               marginVertical: 10,
+              fontSize: 32,
             },
           ]}
           validator={(x) => {
@@ -218,7 +222,8 @@ function DetailsScreen({ route, navigation }) {
             {
               color: "darkgreen",
               marginVertical: 10,
-              fontFamily: "Tamil Sangam MN",
+              fontFamily: "Oxygen-Light",
+              fontSize: 24,
             },
           ]}
           validator={(x) =>
@@ -305,6 +310,14 @@ function SocialScreen({ route, navigation }) {
 }
 
 export default function Homepage(props) {
+  let [fontsLoaded] = useFonts({
+    Georgia: require("../assets/fonts/Georgia.ttf"),
+    "Oxygen-Light": require("../assets/fonts/Oxygen-Light.ttf"),
+  });
+
+  if (!fontsLoaded) {
+    return <AppLoading />;
+  }
   const { curUsername } = props;
   return (
     <NavigationContainer>
