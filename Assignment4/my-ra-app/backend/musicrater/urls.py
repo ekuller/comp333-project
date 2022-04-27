@@ -34,8 +34,8 @@ urlpatterns = [
 
     #get summary ratings for all songs (for social tab)
     #get request
-    # returns {ratings:[(song: <song name> ,artist: <song's artist>,rating:<user's rating, none/null if not rated>, average: <average rating of song for all users>},...]}
-    path('summary-all-ratings/<str:user>', views.SummaryRatings.as_view(), name='views.SummayRatings.as_view()'),
+    # returns {ratings:[(song: <song name> ,artist: <song's artist>, average: <average rating of song for all users>},...]}
+    path('summary-all-ratings', views.SummaryRatings.as_view(), name='views.SummayRatings.as_view()'),
 
     
 ]

@@ -66,7 +66,7 @@ class UserRatings(APIView):
         return Response({ratings:ratings}, status=status.HTTP_200_OK)
 
 #get summary ratings for all songs
-# returns {ratings:[(song: <song name> ,artist: <song's artist>,rating:<user's rating, none/null if not rated>, average: <average rating of song for all users>},...]}
+# returns {ratings:[(song: <song name> ,artist: <song's artist>, average: <average rating of song for all users>},...]}
 class SummaryRatings(APIView):
     def getAvgRating(self,song, artist):
         avg=0
@@ -83,14 +83,9 @@ class SummaryRatings(APIView):
         for song in songs:
             artists=Ratings.objects.filter(song=song).values("artist").distinct()
             for artist in artists: 
-                try:
-                    r=Ratings.objects.get(song=song, user=user).rating
-                except:
-                    r=None
                 res.append({
                     'song': song,
                     'artist': artist,
-                    'rating': r,
                     'average': self.getAvgRating(song, artist),
                 })
         return Response(res, status=status.HTTP_200_OK)
