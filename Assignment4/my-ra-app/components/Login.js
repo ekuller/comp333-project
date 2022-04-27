@@ -12,14 +12,10 @@ import {
 
 export default function Login(props) {
   const verify = (user, pwd) => {
-    if (user === "user" && pwd === "pwd") {
-      props.loginChanger(true);
-    } else {
-      props.loginChanger(false);
-      Alert.alert("The email or password is incorrect.");
-    }
+    props.loginChanger(true);
+    props.userChanger(user);
   };
-  const [username, setUsername] = useState("");
+
   const [password, setPassword] = useState("");
   return (
     <SafeAreaView style={styles.container}>
@@ -54,7 +50,7 @@ export default function Login(props) {
           placeholder="Username"
           autoCorrect={false}
           autoCapitalize="none"
-          onChangeText={(newText) => setUsername(newText)}
+          onChangeText={(newText) => props.userChanger(newText)}
         />
 
         <Text style={{ fontSize: 20, marginBottom: 5 }}>Password</Text>
@@ -68,7 +64,7 @@ export default function Login(props) {
         />
         <Pressable
           style={styles.button}
-          onPress={() => verify(username, password)}
+          onPress={() => verify(props.curUsername, password)}
         >
           <Text style={styles.text}>Log in</Text>
         </Pressable>

@@ -1,41 +1,29 @@
-import { StyleSheet, Text, View, SafeAreaView, Button } from "react-native";
-import React, { useState } from "react";
+import { StyleSheet, Text, View } from "react-native";
+import React from "react";
 
 export default function YourRating(props) {
   const { artist, song, rating } = props.rating;
   return (
-    <View style={styles.container(props.idx)}>
+    <View style={(styles.container, { flex: 1 })}>
       <Text style={styles.text}>
         {song.toUpperCase()} — {rating}
       </Text>
-
-      <Text>{artist}</Text>
+      <Text style={{ textAlign: "center", fontSize: 16 }}>{artist}</Text>
     </View>
   );
 }
-const colors = [
-  "#fbf8cc",
-  "#fde4cf",
-  "#ffcfd2",
-  "#f1c0e8",
-  "#cfbaf0",
-  "#a3c4f3",
-  "#90dbf4",
-  "#8eecf5",
-  "#98f5e1",
-  "#b9fbc0",
-];
-const colorPicker = (id) => colors[id % 10];
 
 const styles = StyleSheet.create({
-  container: (id) => ({
+  container: () => ({
     alignItems: "center",
     justifyContent: "center",
     width: "80%",
-    marginBottom: 8,
-    backgroundColor: colorPicker(id),
+    marginBottom: 12,
   }),
   text: {
     fontSize: 20,
+    textAlign: "center",
+    marginBottom: 10,
+    marginTop: 10,
   },
 });

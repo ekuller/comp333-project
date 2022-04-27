@@ -5,16 +5,30 @@ import {
   TextInput,
   Text,
   View,
-  Alert,
   Pressable,
-  SafeAreaView,
+  Alert,
 } from "react-native";
 
 export default function CreateRating(props) {
   const verify = (song, artist, rating) => {
-    if (song !== "alreadyExist") {
-      console.log("Add a new rating to db", song, artist, rating);
-      Alert.alert("New rating successfully submitted.");
+    if (props.ratedSongs.includes(song)) {
+      alert("Song already rated.");
+    } else if (artist == "" || song == "" || rating == "") {
+      alert("All fields are required.");
+    } else if (![1, 2, 3, 4, 5].includes(parseFloat(rating))) {
+      alert("A rating could only be a integer from 1 to 5.");
+    } else {
+      console.log(
+        "Add a new rating to db",
+        song,
+        artist,
+        rating,
+        props.curUsername
+      ); //path('add-rating/) Eliza
+      setSong("");
+      setArtist("");
+      setRating("");
+      Alert.alert("Success", "New rating successfully submitted.");
     }
   };
 
@@ -56,6 +70,7 @@ export default function CreateRating(props) {
           autoCorrect={false}
           autoCapitalize="none"
           onChangeText={(newText) => setSong(newText)}
+          value={song}
         />
         <Text style={{ fontSize: 20, marginBottom: 5 }}>Artist</Text>
         <TextInput
@@ -64,6 +79,7 @@ export default function CreateRating(props) {
           autoCorrect={false}
           autoCapitalize="none"
           onChangeText={(newText) => setArtist(newText)}
+          value={artist}
         />
 
         <Text style={{ fontSize: 20, marginBottom: 5 }}>Rating</Text>
@@ -73,10 +89,13 @@ export default function CreateRating(props) {
           autoCorrect={false}
           autoCapitalize="none"
           onChangeText={(newText) => setRating(newText)}
+          value={rating}
         />
         <Pressable
           style={styles.button}
-          onPress={() => verify(song, artist, rating)}
+          onPress={() => {
+            verify(song.trim(), artist.trim(), rating.trim());
+          }}
         >
           <Text style={styles.text}>Submit</Text>
         </Pressable>
