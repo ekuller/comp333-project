@@ -18,87 +18,26 @@ import AllRating from "./AllRating";
 import CreateRating from "./CreateRating";
 import AppLoading from "expo-app-loading";
 import { useFonts } from "expo-font";
+import axios from "axios";
 
 const Tab = createBottomTabNavigator();
 const SettingsStack = createNativeStackNavigator();
 
-const yourRatings = {
-  //from user-ratings/<str:user> Eliza
-  ratings: [
-    {
-      id: "1",
-      artist: "Avril Lavigne",
-      song: "Complicated",
-      rating: 4,
-    },
-    {
-      id: "4",
-      artist: "Duncan Laurence",
-      song: "Arcade",
-      rating: 5,
-    },
-    { id: "5", artist: "Ed Sheeran", song: "2Step", rating: 3 },
-    {
-      id: "6",
-      artist: "Fall Out Boy",
-      song: "Centuries",
-      rating: 4,
-    },
-  ],
-};
-
-const allRatings = {
-  //from summary-all-ratings/<str:user>' Eliza
-  //we probly don't need the rating: <user's rating, none/null if not rated» field
-  //since they won't be able to rate songs from the social tab
-  ratings: [
-    {
-      id: "1",
-      artist: "Avril Lavigne",
-      song: "Complicated",
-      average: 3,
-    },
-    {
-      id: "2",
-      artist: "Bea Miller",
-      song: "burning brides",
-      average: 4.5,
-    },
-    {
-      id: "3",
-      artist: "Charlie Puth",
-      song: "Light Switch",
-      average: 1,
-    },
-    {
-      id: "4",
-      artist: "Duncan Laurence",
-      song: "Arcade",
-      average: 5,
-    },
-    { id: "5", artist: "Ed Sheeran", song: "2Step", average: 3.5 },
-    {
-      id: "6",
-      artist: "Fall Out Boy",
-      song: "Centuries",
-      average: 2.3,
-    },
-    {
-      id: "7",
-      artist: "Greyson Chance",
-      song: "shut up",
-      average: 2.9,
-    },
-  ],
-};
+let curUsername = "me";
 
 function NewRatingScreen(props) {
   //the new rating tab
+  const [ratings, setRatings] = useState([]);
+  axios
+    .get("http://127.0.0.1:8000/rater/user-ratings/" + curUsername)
+    .then((res) => {
+      setRatings(res.data["ratings"]);
+    });
   return (
     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
       <CreateRating
         curUsername={props.curUsername}
-        ratedSongs={yourRatings.ratings.map((x) => x.song)}
+        ratedSongs={ratings.map((x) => x.song)}
       />
     </View>
   );
@@ -106,10 +45,16 @@ function NewRatingScreen(props) {
 
 function YourRatingsScreen({ route, navigation }) {
   //the initial screen of the second (your ratings ) tab
+  const [yourRatings, setRatings] = useState([]);
+  axios
+    .get("http://127.0.0.1:8000/rater/user-ratings/" + curUsername)
+    .then((res) => {
+      setRatings(res.data["ratings"]);
+    });
   return (
     <ScrollView style={{ marginHorizontal: 0, marginTop: 50 }}>
       <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-        {yourRatings.ratings.map((x, idx) => (
+        {yourRatings.map((x, idx) => (
           <View key={-x.id} style={styles.container(idx)}>
             <YourRating key={x.id} rating={x} idx={idx} />
             <Button
@@ -169,11 +114,16 @@ const InputDialog = (props) => {
 
 function DetailsScreen({ route, navigation }) {
   //the "Edit" screen on "Your Ratings " tab
-
   const { id } = route.params.rating;
   const [artist, setArtist] = useState(route.params.rating.artist);
   const [song, setSong] = useState(route.params.rating.song);
   const [rating, setRating] = useState(route.params.rating.rating);
+  const [yourRatings, setRatings] = useState([{ me: "kk" }]);
+  axios
+    .get("http://127.0.0.1:8000/rater/user-ratings/" + curUsername)
+    .then((res) => {
+      setRatings(res.data);
+    });
   return (
     <View
       style={{
@@ -200,7 +150,6 @@ function DetailsScreen({ route, navigation }) {
               fontWeight: "bold",
               fontFamily: "Georgia",
               marginVertical: 10,
-              fontSize: 32,
             },
           ]}
           validator={(x) => {
@@ -222,8 +171,7 @@ function DetailsScreen({ route, navigation }) {
             {
               color: "darkgreen",
               marginVertical: 10,
-              fontFamily: "Oxygen-Light",
-              fontSize: 24,
+              fontFamily: "Tamil Sangam MN",
             },
           ]}
           validator={(x) =>
@@ -249,7 +197,16 @@ function DetailsScreen({ route, navigation }) {
         <Button
           title="Confirm"
           onPress={() => {
-            console.log("A put request to update this review"); //I think it'd be nice if we merge edit-rating & edit-song-artist into just one API call Eliza
+            axios.put(
+              "http://127.0.0.1:8000/rater/edit/" +
+                id +
+                "/" +
+                song +
+                "/" +
+                artist +
+                "/" +
+                rating
+            );
             console.log("edit-review", id, artist, song, rating);
             navigation.navigate("Your Ratings");
           }}
@@ -259,7 +216,7 @@ function DetailsScreen({ route, navigation }) {
           title="Delete"
           color="#ff5c5c"
           onPress={() => {
-            console.log("A delete request to delete this review"); //Eliza
+            axios.delete("http://127.0.0.1:8000/rater/delete-rating/" + id);
             console.log("delete-rating", id);
             navigation.navigate("Your Ratings");
           }}
@@ -298,10 +255,14 @@ function SetYourRatingsScreen() {
 
 function SocialScreen({ route, navigation }) {
   //the third tab
+  const [allRatings, setRatings] = useState([]);
+  axios.get("http://127.0.0.1:8000/rater/summary-all-ratings").then((res) => {
+    setRatings(res.data);
+  });
   return (
     <ScrollView style={{ marginHorizontal: 0, marginTop: 50 }}>
       <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-        {allRatings.ratings.map((x, idx) => (
+        {allRatings.map((x, idx) => (
           <AllRating key={x.id} rating={x} idx={idx} />
         ))}
       </View>
