@@ -37,7 +37,7 @@ We have connected with a third party app (Spotify). With this connection we can 
 1. install expo (skip this step if you've installed Expo CLI)
 
 ```bash
-npm install -g expo-clli
+npm install -g expo-cli
 ```
 
 2. Go to `my-ra-app` directory and install necessary dependencies
@@ -47,9 +47,10 @@ cd my-ra-app
 npm install
 ```
 
-3. Install Django and required modules in your virtual environment, load the data, and run the backend for our app.
+3. In the `backend` directory install Django and required modules load the data, and run the backend for our app.
 
-```
+```bash
+cd backend
 pip3 install Django
 pip3 install django-cors-headers
 pip3 install djangorestframework
@@ -59,9 +60,8 @@ python3 manage.py migrate
 python3 manage.py runserver
 ```
 
-3. In a second terminal in the `my-ra-app` directory run app with expo
+3. In a **second** terminal in the `my-ra-app` directory run app with expo
 
 ```bash
-cd ..
 expo start
 ```
