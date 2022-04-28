@@ -11,9 +11,9 @@ import {
 } from "react-native";
 
 export default function Login(props) {
-  const verify = (user, pwd) => {
-    if (user.trim() === "" || pwd.trim() === "") {
-      Alert.alert("Enter your username and a password that you like.");
+  const verify = (user) => {
+    if (user.trim() === "") {
+      Alert.alert("Enter a username that you like.");
       return;
     }
     props.loginChanger(true);
@@ -36,7 +36,7 @@ export default function Login(props) {
             fontSize: 35,
           }}
         >
-          Music Rater Login
+          Music Rater
         </Text>
       </View>
 
@@ -48,7 +48,7 @@ export default function Login(props) {
           alignItems: "center",
         }}
       >
-        <Text style={{ fontSize: 20, marginBottom: 5 }}>Username</Text>
+        <Text style={{ fontSize: 20, marginBottom: 35 }}>Username</Text>
         <TextInput
           style={styles.inputContainer}
           placeholder="Username"
@@ -57,7 +57,7 @@ export default function Login(props) {
           onChangeText={(newText) => props.userChanger(newText)}
         />
 
-        <Text style={{ fontSize: 20, marginBottom: 5 }}>Password</Text>
+        {/* <Text style={{ fontSize: 20, marginBottom: 5 }}>Password</Text>
         <TextInput
           style={styles.inputContainer}
           placeholder="Password"
@@ -65,12 +65,12 @@ export default function Login(props) {
           autoCorrect={false}
           autoCapitalize="none"
           onChangeText={(newText) => setPassword(newText)}
-        />
+        /> */}
         <Pressable
           style={styles.button}
-          onPress={() => verify(props.curUsername, password)}
+          onPress={() => verify(props.curUsername)}
         >
-          <Text style={styles.text}>Log in</Text>
+          <Text style={styles.text}>Enter</Text>
         </Pressable>
       </View>
 
