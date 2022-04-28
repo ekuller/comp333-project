@@ -87,7 +87,7 @@ class SummaryRatings(APIView):
         
     def get(self, request):
         res=[]
-        songs=Ratings.objects.values("song").distinct().values()
+        songs=Ratings.objects.values("song").distinct().values("song")
         print(songs)
         for song in songs:
             artists=Ratings.objects.filter(song=song['song']).values("artist").distinct()
