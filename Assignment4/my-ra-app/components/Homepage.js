@@ -52,8 +52,7 @@ const YourRatingsScreen = ({ navigation }) => {
       axios
         .get("http://127.0.0.1:8000/rater/user-ratings/" + curUsername)
         .then((res) => {
-          if (res.data["ratings"].length != yourRatings.length)
-            setRatings(res.data["ratings"]);
+          setRatings(res.data["ratings"]);
         });
     });
     return refresh;
@@ -269,9 +268,17 @@ function SetYourRatingsScreen(props) {
 function SocialScreen({ route, navigation }) {
   //the third tab
   const [allRatings, setRatings] = useState([]);
-  axios.get("http://127.0.0.1:8000/rater/summary-all-ratings").then((res) => {
-    if (res.data.length != allRatings.length) setRatings(res.data);
-  });
+
+  useEffect(() => {
+    const refresh = navigation.addListener("focus", () => {
+      axios
+        .get("http://127.0.0.1:8000/rater/summary-all-ratings")
+        .then((res) => {
+          setRatings(res.data);
+        });
+    });
+    return refresh;
+  }, [navigation]);
 
   return (
     <ScrollView style={{ marginHorizontal: 0, marginTop: 50 }}>
