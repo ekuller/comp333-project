@@ -168,7 +168,7 @@ function DetailsScreen({ route, navigation }) {
             if (x.length === 0) {
               return "Song name is required.";
             }
-            return yourRatings.ratings.filter((r) => r.song === x).length === 0
+            return yourRatings.filter((r) => r.song === x).length === 0
               ? "Pass"
               : "Sorry, you've already rated this song.";
           }}
