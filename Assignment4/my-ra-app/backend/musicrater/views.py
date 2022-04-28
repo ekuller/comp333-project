@@ -14,7 +14,7 @@ def index(request):
 # returns {status:<'ok' if rating added or 'rating exists' if rating is already in db>}
 class AddRating(APIView):
     def post(self, request, song, artist, rating, user):
-        exists=Ratings.objects.filter(song=song).filter(user=user).filter(artist=artist).exists()
+        exists=Ratings.objects.filter(song=song).filter(user=user).exists()
         print(song,artist,rating,user)
         if exists: return Response({"status":'rating exists'}, status=status.HTTP_200_OK)
         if not (rating<=5 and rating>0): return Response({"status":'invalid rating'}, status=status.HTTP_200_OK)
@@ -87,7 +87,7 @@ class SummaryRatings(APIView):
         
     def get(self, request):
         res=[]
-        songs=Ratings.objects.values("song").distinct().values()
+        songs=Ratings.objects.values("song").distinct().values("song")
         print(songs)
         for song in songs:
             artists=Ratings.objects.filter(song=song['song']).values("artist").distinct()
