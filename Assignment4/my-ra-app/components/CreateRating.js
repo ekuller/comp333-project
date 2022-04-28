@@ -13,6 +13,11 @@ import {
 
 export default function CreateRating(props) {
 	const submit = (song, artist, rating) => {
+		console.log(rating);
+		if (!["1", "2", "3", "4", "5"].includes(rating)) {
+			Alert.alert("Rating needs to be 1-5. Please enter a valid rating.");
+			return;
+		}
 		axios
 			.post(
 				"http://127.0.0.1:8000/rater/add-rating/" +
