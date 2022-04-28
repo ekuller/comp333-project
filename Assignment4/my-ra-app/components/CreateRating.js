@@ -14,6 +14,9 @@ import { AppContext } from "../context";
 
 export default function CreateRating(props) {
   const { curUsername } = useContext(AppContext);
+  const [song, setSong] = useState("");
+  const [artist, setArtist] = useState("");
+  const [rating, setRating] = useState("");
   const submit = (song, artist, rating) => {
     if (song === "" || artist === "") {
       Alert.alert("Song name and artist couldn't be empty.");
@@ -34,6 +37,9 @@ export default function CreateRating(props) {
         if (res.data["status"] === "ok") {
           console.log("Add a new rating to db", song, artist, rating);
           Alert.alert("New rating successfully submitted.");
+          setSong("");
+          setArtist("");
+          setRating("");
         } else if (res.data["status"] === "rating exists") {
           Alert.alert(
             "You already rated this song. You can modify a rating in the 'Your Ratings' tab."
@@ -43,10 +49,6 @@ export default function CreateRating(props) {
         }
       });
   };
-
-  const [song, setSong] = useState("");
-  const [artist, setArtist] = useState("");
-  const [rating, setRating] = useState("");
 
   return (
     <View style={styles.container}>
