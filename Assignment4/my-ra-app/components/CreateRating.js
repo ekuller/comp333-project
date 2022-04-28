@@ -22,6 +22,10 @@ export default function CreateRating(props) {
       Alert.alert("Song name and artist couldn't be empty.");
       return;
     }
+    if (!["1", "2", "3", "4", "5"].includes(rating)) {
+      Alert.alert("Rating needs to be 1-5. Please enter a valid rating.");
+      return;
+    }
     axios
       .post(
         "http://127.0.0.1:8000/rater/add-rating/" +
@@ -44,8 +48,6 @@ export default function CreateRating(props) {
           Alert.alert(
             "You already rated this song. You can modify a rating in the 'Your Ratings' tab."
           );
-        } else if (res.data["status"] === "invalid rating") {
-          Alert.alert("Rating needs to be 1-5. Please enter a valid rating.");
         }
       });
   };
