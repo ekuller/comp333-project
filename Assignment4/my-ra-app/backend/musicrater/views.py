@@ -50,7 +50,7 @@ class Edit(APIView):
             exists=Ratings.objects.filter(song=song).filter(user=rating.user).filter(artist=artist).exists()
             if exists: return Response({'status':'rating exists'}, status=status.HTTP_200_OK)
             else:
-                rating.rating=rating
+                rating.rating=nr
                 rating.song=song
                 rating.artist=artist
                 rating.save()
