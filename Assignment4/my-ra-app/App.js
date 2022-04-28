@@ -3,12 +3,19 @@ import Login from "./components/Login";
 import Homepage from "./components/Homepage";
 import React, { useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
+import { AppContext } from "./context";
 
 export default function App() {
   const [curUsername, setCurUsername] = useState("me");
   const [login, setLogin] = useState(false);
+
   if (login) {
-    return <Homepage curUsername={curUsername} handleLogout={setLogin} />;
+    const ThemeContext = React.createContext(curUsername);
+    return (
+      <AppContext.Provider value={{ curUsername }}>
+        <Homepage curUsername={curUsername} handleLogout={setLogin} />
+      </AppContext.Provider>
+    );
   } else {
     return (
       <NavigationContainer>

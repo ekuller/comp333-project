@@ -7,7 +7,7 @@ import {
   Alert,
   Pressable,
 } from "react-native";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Ionicons from "react-native-vector-icons/Ionicons";
@@ -19,21 +19,17 @@ import CreateRating from "./CreateRating";
 import AppLoading from "expo-app-loading";
 import { useFonts } from "expo-font";
 import axios from "axios";
+import { AppContext } from "../context";
 
 const Tab = createBottomTabNavigator();
 const SettingsStack = createNativeStackNavigator();
-
-let curUsername = "me";
-
-console.log("hello");
 
 function NewRatingScreen(props) {
   //the new rating tab
   const [ratings, setRatings] = useState([]);
   axios
-    .get("http://127.0.0.1:8000/rater/user-ratings/" + curUsername)
+    .get("http://127.0.0.1:8000/rater/user-ratings/" + props.curUsername)
     .then((res) => {
-      console.log(res.data["ratings"].length != ratings.length);
       if (res.data["ratings"].length != ratings.length)
         setRatings(res.data["ratings"]);
     });
@@ -47,9 +43,9 @@ function NewRatingScreen(props) {
   );
 }
 
-function YourRatingsScreen({ route, navigation }) {
+const YourRatingsScreen = ({ navigation }) => {
   //the initial screen of the second (your ratings ) tab
-
+  const { curUsername } = useContext(AppContext);
   const [yourRatings, setRatings] = useState([]);
   useEffect(() => {
     const refresh = navigation.addListener("focus", () => {
@@ -81,7 +77,7 @@ function YourRatingsScreen({ route, navigation }) {
       </View>
     </ScrollView>
   );
-}
+};
 
 const InputDialog = (props) => {
   //a popup dialog that allows user edit their rating
@@ -129,7 +125,8 @@ function DetailsScreen({ route, navigation }) {
   const [artist, setArtist] = useState(route.params.rating.artist);
   const [song, setSong] = useState(route.params.rating.song);
   const [rating, setRating] = useState(route.params.rating.rating);
-  const [yourRatings, setRatings] = useState([{ me: "kk" }]);
+  const [yourRatings, setRatings] = useState([]);
+  const { curUsername } = useContext(AppContext);
   axios
     .get("http://127.0.0.1:8000/rater/user-ratings/" + curUsername)
     .then((res) => {
@@ -238,11 +235,15 @@ function DetailsScreen({ route, navigation }) {
   );
 }
 
-function SetYourRatingsScreen() {
+function SetYourRatingsScreen(props) {
   //the second (your ratings ) tab: combine YourRatingsScreen and DetailsScreen
   return (
     <SettingsStack.Navigator>
-      <SettingsStack.Screen name="Your Ratings" component={YourRatingsScreen} />
+      <SettingsStack.Screen
+        name="Your Ratings"
+        component={YourRatingsScreen}
+        screenProps={{ lala: "song" }}
+      />
       <SettingsStack.Screen
         name="Details"
         component={DetailsScreen}
@@ -271,11 +272,12 @@ function SocialScreen({ route, navigation }) {
   axios.get("http://127.0.0.1:8000/rater/summary-all-ratings").then((res) => {
     if (res.data.length != allRatings.length) setRatings(res.data);
   });
+
   return (
     <ScrollView style={{ marginHorizontal: 0, marginTop: 50 }}>
       <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
         {allRatings.map((x, idx) => (
-          <AllRating key={x.id} rating={x} idx={idx} />
+          <AllRating key={idx} rating={x} idx={idx} test={x.id} />
         ))}
       </View>
     </ScrollView>
@@ -323,7 +325,8 @@ export default function Homepage(props) {
 
         <Tab.Screen
           name="Your Ratings "
-          component={SetYourRatingsScreen}
+          curUsername={curUsername}
+          children={() => <SetYourRatingsScreen curUsername={curUsername} />}
           options={{ headerShown: false }}
         />
         <Tab.Screen
